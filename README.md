@@ -1,6 +1,7 @@
 # spotinst-metrics-exporter
 
 [![Build Status](https://github.com/Bonial-International-GmbH/spotinst-metrics-exporter/actions/workflows/ci.yml/badge.svg)](https://github.com/Bonial-International-GmbH/spotinst-metrics-exporter/actions/workflows/ci.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Bonial-International-GmbH/spotinst-metrics-exporter)](https://goreportcard.com/report/github.com/Bonial-International-GmbH/spotinst-metrics-exporter)
 ![License](https://img.shields.io/github/license/Bonial-International-GmbH/spotinst-metrics-exporter)
 
 A prometheus exporter for metrics from Spotinst.
