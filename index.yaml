@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  spotinst-metrics-exporter:
+  - apiVersion: v2
+    appVersion: v0.0.1
+    created: "2022-10-13T12:19:37.359309417Z"
+    description: A prometheus exporter for metrics from Spotinst
+    digest: 8d077ec12da23ca9c84d759622cc2e9e5e5edba989204ff3d52051c4c97032e6
+    name: spotinst-metrics-exporter
+    type: application
+    urls:
+    - https://github.com/Bonial-International-GmbH/spotinst-metrics-exporter/releases/download/spotinst-metrics-exporter-0.0.1/spotinst-metrics-exporter-0.0.1.tgz
+    version: 0.0.1
+generated: "2022-10-13T12:19:37.359316217Z"
