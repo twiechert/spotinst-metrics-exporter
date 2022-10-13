@@ -24,6 +24,46 @@ the listen address via the `--listen-address` flag.
 The exporter will listen on `0.0.0.0:8080` by default and exposes prometheus
 metrics at `/metrics` and a health endpoint at `/healthz`.
 
+## Deployment
+
+The helm chart provided in this repository can be used to deploy the metrics exporter.
+
+First, add the helm repository:
+
+```sh
+helm repo add spotinst-metrics-exporter \
+  https://bonial-international-gmbh.github.io/spotinst-metrics-exporter
+```
+
+Create a `values.yaml` and add a `spotinst` section with the account ID and
+token, for example:
+
+```yaml
+---
+spotinst:
+  account: act-12345678
+  token: the-spotinst-token
+```
+
+For more helm configuration options have a look into the [`values.yaml`
+defaults](https://github.com/Bonial-International-GmbH/spotinst-metrics-exporter/blob/main/charts/spotinst-metrics-exporter/values.yaml).
+
+Finally use helm to install the metrics exporter:
+
+```sh
+helm upgrade spotinst-metrics-exporter spotinst-metrics-exporter/spotinst-metrics-exporter \
+  --install --namespace kube-system --values values.yaml
+```
+
+Alternatively, you can also pass `spotinst.account` and `spotinst.token` to the
+`helm` command directly instead of using a `values.yaml` file:
+
+```sh
+helm upgrade spotinst-metrics-exporter spotinst-metrics-exporter/spotinst-metrics-exporter \
+  --install --namespace kube-system \
+  --set spotinst.account=act-12345678,spotinst.token=the-spotinst-token
+```
+
 ## Metrics
 
 All metrics are gauge values. The values of CPU metrics are in milli-CPU,
