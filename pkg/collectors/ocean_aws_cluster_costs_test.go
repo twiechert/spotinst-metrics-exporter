@@ -76,13 +76,13 @@ func TestOceanAWSClusterCostsCollector(t *testing.T) {
 			expected: `
                 # HELP spotinst_ocean_aws_cluster_cost Total cost of an ocean cluster
                 # TYPE spotinst_ocean_aws_cluster_cost gauge
-                spotinst_ocean_aws_cluster_cost{ocean="foo"} 200
+                spotinst_ocean_aws_cluster_cost{ocean_id="foo",ocean_name="ocean-foo"} 200
                 # HELP spotinst_ocean_aws_namespace_cost Total cost of a namespace
                 # TYPE spotinst_ocean_aws_namespace_cost gauge
-                spotinst_ocean_aws_namespace_cost{namespace="foo-ns",ocean="foo"} 190
+                spotinst_ocean_aws_namespace_cost{namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo"} 190
                 # HELP spotinst_ocean_aws_deployment_cost Total cost of a deployment
                 # TYPE spotinst_ocean_aws_deployment_cost gauge
-                spotinst_ocean_aws_deployment_cost{name="foo-deployment",namespace="foo-ns",ocean="foo"} 180
+                spotinst_ocean_aws_deployment_cost{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo"} 180
             `,
 		},
 	}
@@ -106,6 +106,7 @@ func oceanClusters(clusterIDs ...string) []*aws.Cluster {
 		clusters = append(clusters, &aws.Cluster{
 			ID:                  spotinst.String(id),
 			ControllerClusterID: spotinst.String(id),
+			Name:                spotinst.String("ocean-" + id),
 		})
 	}
 

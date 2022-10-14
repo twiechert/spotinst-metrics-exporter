@@ -55,49 +55,49 @@ func NewOceanAWSResourceSuggestionsCollector(
 		requestedWorkloadCPU: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "workload_cpu_requested"),
 			"The number of actual CPU units requested by a workload",
-			[]string{"ocean", "workload", "namespace", "name"},
+			[]string{"ocean_id", "ocean_name", "workload", "namespace", "name"},
 			nil,
 		),
 		suggestedWorkloadCPU: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "workload_cpu_suggested"),
 			"The number of CPU units suggested for a workload",
-			[]string{"ocean", "workload", "namespace", "name"},
+			[]string{"ocean_id", "ocean_name", "workload", "namespace", "name"},
 			nil,
 		),
 		requestedWorkloadMemory: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "workload_memory_requested"),
 			"The number of actual memory units requested by a workload",
-			[]string{"ocean", "workload", "namespace", "name"},
+			[]string{"ocean_id", "ocean_name", "workload", "namespace", "name"},
 			nil,
 		),
 		suggestedWorkloadMemory: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "workload_memory_suggested"),
 			"The number of memory units suggested for a workload",
-			[]string{"ocean", "workload", "namespace", "name"},
+			[]string{"ocean_id", "ocean_name", "workload", "namespace", "name"},
 			nil,
 		),
 		requestedContainerCPU: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "workload_container_cpu_requested"),
 			"The number of actual CPU units requested by a workload's container",
-			[]string{"ocean", "workload", "namespace", "name", "container"},
+			[]string{"ocean_id", "ocean_name", "workload", "namespace", "name", "container"},
 			nil,
 		),
 		suggestedContainerCPU: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "workload_container_cpu_suggested"),
 			"The number of CPU units suggested for a workload's container",
-			[]string{"ocean", "workload", "namespace", "name", "container"},
+			[]string{"ocean_id", "ocean_name", "workload", "namespace", "name", "container"},
 			nil,
 		),
 		requestedContainerMemory: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "workload_container_memory_requested"),
 			"The number of actual memory units requested by a workload's container",
-			[]string{"ocean", "workload", "namespace", "name", "container"},
+			[]string{"ocean_id", "ocean_name", "workload", "namespace", "name", "container"},
 			nil,
 		),
 		suggestedContainerMemory: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "workload_container_memory_suggested"),
 			"The number of memory units suggested for a workload's container",
-			[]string{"ocean", "workload", "namespace", "name", "container"},
+			[]string{"ocean_id", "ocean_name", "workload", "namespace", "name", "container"},
 			nil,
 		),
 	}
@@ -124,26 +124,26 @@ func (c *OceanAWSResourceSuggestionsCollector) Collect(ch chan<- prometheus.Metr
 			OceanID: cluster.ID,
 		}
 
-		clusterID := spotinst.StringValue(cluster.ID)
-
 		output, err := c.client.ListOceanResourceSuggestions(c.ctx, input)
 		if err != nil {
-			c.logger.Error(err, "failed to list resource suggestions", "ocean", clusterID)
+			clusterID := spotinst.StringValue(cluster.ID)
+			c.logger.Error(err, "failed to list resource suggestions", "ocean_id", clusterID)
 			continue
 		}
 
-		c.collectWorkloadSuggestions(ch, output.Suggestions, clusterID)
+		c.collectWorkloadSuggestions(ch, output.Suggestions, cluster)
 	}
 }
 
 func (c *OceanAWSResourceSuggestionsCollector) collectWorkloadSuggestions(
 	ch chan<- prometheus.Metric,
 	suggestions []*aws.ResourceSuggestion,
-	oceanID string,
+	cluster *aws.Cluster,
 ) {
 	for _, suggestion := range suggestions {
 		labelValues := []string{
-			oceanID,
+			spotinst.StringValue(cluster.ID),
+			spotinst.StringValue(cluster.Name),
 			strings.ToLower(spotinst.StringValue(suggestion.ResourceType)),
 			spotinst.StringValue(suggestion.Namespace),
 			spotinst.StringValue(suggestion.ResourceName),

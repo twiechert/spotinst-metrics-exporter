@@ -75,28 +75,28 @@ func TestOceanAWSResourceSuggestionsCollector(t *testing.T) {
 			expected: `
                 # HELP spotinst_ocean_aws_workload_container_cpu_requested The number of actual CPU units requested by a workload's container
                 # TYPE spotinst_ocean_aws_workload_container_cpu_requested gauge
-                spotinst_ocean_aws_workload_container_cpu_requested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 900
+                spotinst_ocean_aws_workload_container_cpu_requested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 900
                 # HELP spotinst_ocean_aws_workload_container_cpu_suggested The number of CPU units suggested for a workload's container
                 # TYPE spotinst_ocean_aws_workload_container_cpu_suggested gauge
-                spotinst_ocean_aws_workload_container_cpu_suggested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 200
+                spotinst_ocean_aws_workload_container_cpu_suggested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 200
                 # HELP spotinst_ocean_aws_workload_container_memory_requested The number of actual memory units requested by a workload's container
                 # TYPE spotinst_ocean_aws_workload_container_memory_requested gauge
-                spotinst_ocean_aws_workload_container_memory_requested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 1800
+                spotinst_ocean_aws_workload_container_memory_requested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 1800
                 # HELP spotinst_ocean_aws_workload_container_memory_suggested The number of memory units suggested for a workload's container
                 # TYPE spotinst_ocean_aws_workload_container_memory_suggested gauge
-                spotinst_ocean_aws_workload_container_memory_suggested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 90
+                spotinst_ocean_aws_workload_container_memory_suggested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 90
                 # HELP spotinst_ocean_aws_workload_cpu_requested The number of actual CPU units requested by a workload
                 # TYPE spotinst_ocean_aws_workload_cpu_requested gauge
-                spotinst_ocean_aws_workload_cpu_requested{name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 1000
+                spotinst_ocean_aws_workload_cpu_requested{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 1000
                 # HELP spotinst_ocean_aws_workload_cpu_suggested The number of CPU units suggested for a workload
                 # TYPE spotinst_ocean_aws_workload_cpu_suggested gauge
-                spotinst_ocean_aws_workload_cpu_suggested{name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 200
+                spotinst_ocean_aws_workload_cpu_suggested{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 200
                 # HELP spotinst_ocean_aws_workload_memory_requested The number of actual memory units requested by a workload
                 # TYPE spotinst_ocean_aws_workload_memory_requested gauge
-                spotinst_ocean_aws_workload_memory_requested{name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 2000
+                spotinst_ocean_aws_workload_memory_requested{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 2000
                 # HELP spotinst_ocean_aws_workload_memory_suggested The number of memory units suggested for a workload
                 # TYPE spotinst_ocean_aws_workload_memory_suggested gauge
-                spotinst_ocean_aws_workload_memory_suggested{name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 100
+                spotinst_ocean_aws_workload_memory_suggested{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 100
             `,
 		},
 		{
@@ -125,36 +125,36 @@ func TestOceanAWSResourceSuggestionsCollector(t *testing.T) {
 			expected: `
                 # HELP spotinst_ocean_aws_workload_container_cpu_requested The number of actual CPU units requested by a workload's container
                 # TYPE spotinst_ocean_aws_workload_container_cpu_requested gauge
-                spotinst_ocean_aws_workload_container_cpu_requested{container="bar-container",name="bar-daemonset",namespace="bar-ns",ocean="foo",workload="daemonset"} 899
-                spotinst_ocean_aws_workload_container_cpu_requested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 900
+                spotinst_ocean_aws_workload_container_cpu_requested{container="bar-container",name="bar-daemonset",namespace="bar-ns",ocean_id="foo",ocean_name="ocean-foo",workload="daemonset"} 899
+                spotinst_ocean_aws_workload_container_cpu_requested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 900
                 # HELP spotinst_ocean_aws_workload_container_cpu_suggested The number of CPU units suggested for a workload's container
                 # TYPE spotinst_ocean_aws_workload_container_cpu_suggested gauge
-                spotinst_ocean_aws_workload_container_cpu_suggested{container="bar-container",name="bar-daemonset",namespace="bar-ns",ocean="foo",workload="daemonset"} 199
-                spotinst_ocean_aws_workload_container_cpu_suggested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 200
+                spotinst_ocean_aws_workload_container_cpu_suggested{container="bar-container",name="bar-daemonset",namespace="bar-ns",ocean_id="foo",ocean_name="ocean-foo",workload="daemonset"} 199
+                spotinst_ocean_aws_workload_container_cpu_suggested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 200
                 # HELP spotinst_ocean_aws_workload_container_memory_requested The number of actual memory units requested by a workload's container
                 # TYPE spotinst_ocean_aws_workload_container_memory_requested gauge
-                spotinst_ocean_aws_workload_container_memory_requested{container="bar-container",name="bar-daemonset",namespace="bar-ns",ocean="foo",workload="daemonset"} 1799
-                spotinst_ocean_aws_workload_container_memory_requested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 1800
+                spotinst_ocean_aws_workload_container_memory_requested{container="bar-container",name="bar-daemonset",namespace="bar-ns",ocean_id="foo",ocean_name="ocean-foo",workload="daemonset"} 1799
+                spotinst_ocean_aws_workload_container_memory_requested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 1800
                 # HELP spotinst_ocean_aws_workload_container_memory_suggested The number of memory units suggested for a workload's container
                 # TYPE spotinst_ocean_aws_workload_container_memory_suggested gauge
-                spotinst_ocean_aws_workload_container_memory_suggested{container="bar-container",name="bar-daemonset",namespace="bar-ns",ocean="foo",workload="daemonset"} 89
-                spotinst_ocean_aws_workload_container_memory_suggested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 90
+                spotinst_ocean_aws_workload_container_memory_suggested{container="bar-container",name="bar-daemonset",namespace="bar-ns",ocean_id="foo",ocean_name="ocean-foo",workload="daemonset"} 89
+                spotinst_ocean_aws_workload_container_memory_suggested{container="foo-container",name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 90
                 # HELP spotinst_ocean_aws_workload_cpu_requested The number of actual CPU units requested by a workload
                 # TYPE spotinst_ocean_aws_workload_cpu_requested gauge
-                spotinst_ocean_aws_workload_cpu_requested{name="bar-daemonset",namespace="bar-ns",ocean="foo",workload="daemonset"} 999
-                spotinst_ocean_aws_workload_cpu_requested{name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 1000
+                spotinst_ocean_aws_workload_cpu_requested{name="bar-daemonset",namespace="bar-ns",ocean_id="foo",ocean_name="ocean-foo",workload="daemonset"} 999
+                spotinst_ocean_aws_workload_cpu_requested{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 1000
                 # HELP spotinst_ocean_aws_workload_cpu_suggested The number of CPU units suggested for a workload
                 # TYPE spotinst_ocean_aws_workload_cpu_suggested gauge
-                spotinst_ocean_aws_workload_cpu_suggested{name="bar-daemonset",namespace="bar-ns",ocean="foo",workload="daemonset"} 199
-                spotinst_ocean_aws_workload_cpu_suggested{name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 200
+                spotinst_ocean_aws_workload_cpu_suggested{name="bar-daemonset",namespace="bar-ns",ocean_id="foo",ocean_name="ocean-foo",workload="daemonset"} 199
+                spotinst_ocean_aws_workload_cpu_suggested{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 200
                 # HELP spotinst_ocean_aws_workload_memory_requested The number of actual memory units requested by a workload
                 # TYPE spotinst_ocean_aws_workload_memory_requested gauge
-                spotinst_ocean_aws_workload_memory_requested{name="bar-daemonset",namespace="bar-ns",ocean="foo",workload="daemonset"} 1999
-                spotinst_ocean_aws_workload_memory_requested{name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 2000
+                spotinst_ocean_aws_workload_memory_requested{name="bar-daemonset",namespace="bar-ns",ocean_id="foo",ocean_name="ocean-foo",workload="daemonset"} 1999
+                spotinst_ocean_aws_workload_memory_requested{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 2000
                 # HELP spotinst_ocean_aws_workload_memory_suggested The number of memory units suggested for a workload
                 # TYPE spotinst_ocean_aws_workload_memory_suggested gauge
-                spotinst_ocean_aws_workload_memory_suggested{name="bar-daemonset",namespace="bar-ns",ocean="foo",workload="daemonset"} 99
-                spotinst_ocean_aws_workload_memory_suggested{name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 100
+                spotinst_ocean_aws_workload_memory_suggested{name="bar-daemonset",namespace="bar-ns",ocean_id="foo",ocean_name="ocean-foo",workload="daemonset"} 99
+                spotinst_ocean_aws_workload_memory_suggested{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 100
             `,
 		},
 		{
@@ -186,20 +186,20 @@ func TestOceanAWSResourceSuggestionsCollector(t *testing.T) {
 			expected: `
                 # HELP spotinst_ocean_aws_workload_cpu_requested The number of actual CPU units requested by a workload
                 # TYPE spotinst_ocean_aws_workload_cpu_requested gauge
-                spotinst_ocean_aws_workload_cpu_requested{name="bar-daemonset",namespace="bar-ns",ocean="bar",workload="daemonset"} 999
-                spotinst_ocean_aws_workload_cpu_requested{name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 1000
+                spotinst_ocean_aws_workload_cpu_requested{name="bar-daemonset",namespace="bar-ns",ocean_id="bar",ocean_name="ocean-bar",workload="daemonset"} 999
+                spotinst_ocean_aws_workload_cpu_requested{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 1000
                 # HELP spotinst_ocean_aws_workload_cpu_suggested The number of CPU units suggested for a workload
                 # TYPE spotinst_ocean_aws_workload_cpu_suggested gauge
-                spotinst_ocean_aws_workload_cpu_suggested{name="bar-daemonset",namespace="bar-ns",ocean="bar",workload="daemonset"} 199
-                spotinst_ocean_aws_workload_cpu_suggested{name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 200
+                spotinst_ocean_aws_workload_cpu_suggested{name="bar-daemonset",namespace="bar-ns",ocean_id="bar",ocean_name="ocean-bar",workload="daemonset"} 199
+                spotinst_ocean_aws_workload_cpu_suggested{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 200
                 # HELP spotinst_ocean_aws_workload_memory_requested The number of actual memory units requested by a workload
                 # TYPE spotinst_ocean_aws_workload_memory_requested gauge
-                spotinst_ocean_aws_workload_memory_requested{name="bar-daemonset",namespace="bar-ns",ocean="bar",workload="daemonset"} 1999
-                spotinst_ocean_aws_workload_memory_requested{name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 2000
+                spotinst_ocean_aws_workload_memory_requested{name="bar-daemonset",namespace="bar-ns",ocean_id="bar",ocean_name="ocean-bar",workload="daemonset"} 1999
+                spotinst_ocean_aws_workload_memory_requested{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 2000
                 # HELP spotinst_ocean_aws_workload_memory_suggested The number of memory units suggested for a workload
                 # TYPE spotinst_ocean_aws_workload_memory_suggested gauge
-                spotinst_ocean_aws_workload_memory_suggested{name="bar-daemonset",namespace="bar-ns",ocean="bar",workload="daemonset"} 99
-                spotinst_ocean_aws_workload_memory_suggested{name="foo-deployment",namespace="foo-ns",ocean="foo",workload="deployment"} 100
+                spotinst_ocean_aws_workload_memory_suggested{name="bar-daemonset",namespace="bar-ns",ocean_id="bar",ocean_name="ocean-bar",workload="daemonset"} 99
+                spotinst_ocean_aws_workload_memory_suggested{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 100
             `,
 		},
 	}

@@ -49,37 +49,37 @@ func NewOceanAWSClusterCostsCollector(
 		clusterCost: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "cluster_cost"),
 			"Total cost of an ocean cluster",
-			[]string{"ocean"},
+			[]string{"ocean_id", "ocean_name"},
 			nil,
 		),
 		namespaceCost: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "namespace_cost"),
 			"Total cost of a namespace",
-			[]string{"ocean", "namespace"},
+			[]string{"ocean_id", "ocean_name", "namespace"},
 			nil,
 		),
 		deploymentCost: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "deployment_cost"),
 			"Total cost of a deployment",
-			[]string{"ocean", "namespace", "name"},
+			[]string{"ocean_id", "ocean_name", "namespace", "name"},
 			nil,
 		),
 		daemonSetCost: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "daemonset_cost"),
 			"Total cost of a daemonset",
-			[]string{"ocean", "namespace", "name"},
+			[]string{"ocean_id", "ocean_name", "namespace", "name"},
 			nil,
 		),
 		statefulSetCost: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "statefulset_cost"),
 			"Total cost of a statefulset",
-			[]string{"ocean", "namespace", "name"},
+			[]string{"ocean_id", "ocean_name", "namespace", "name"},
 			nil,
 		),
 		jobCost: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "job_cost"),
 			"Total cost of a job",
-			[]string{"ocean", "namespace", "name"},
+			[]string{"ocean_id", "ocean_name", "namespace", "name"},
 			nil,
 		),
 	}
@@ -113,24 +113,23 @@ func (c *OceanAWSClusterCostsCollector) Collect(ch chan<- prometheus.Metric) {
 			ToDate:    toDate,
 		}
 
-		clusterID := spotinst.StringValue(cluster.ID)
-
 		output, err := c.client.GetClusterCosts(c.ctx, input)
 		if err != nil {
-			c.logger.Error(err, "failed to fetch cluster costs", "ocean", clusterID)
+			clusterID := spotinst.StringValue(cluster.ID)
+			c.logger.Error(err, "failed to fetch cluster costs", "ocean_id", clusterID)
 			continue
 		}
 
-		c.collectClusterCosts(ch, output.ClusterCosts, clusterID)
+		c.collectClusterCosts(ch, output.ClusterCosts, cluster)
 	}
 }
 
 func (c *OceanAWSClusterCostsCollector) collectClusterCosts(
 	ch chan<- prometheus.Metric,
 	clusters []*mcs.ClusterCost,
-	oceanID string,
+	cluster *aws.Cluster,
 ) {
-	labelValues := []string{oceanID}
+	labelValues := []string{spotinst.StringValue(cluster.ID), spotinst.StringValue(cluster.Name)}
 
 	for _, cluster := range clusters {
 		collectGaugeValue(ch, c.clusterCost, spotinst.Float64Value(cluster.TotalCost), labelValues)
