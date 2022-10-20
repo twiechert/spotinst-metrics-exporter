@@ -74,11 +74,8 @@ running costs of the current month and are reset on every 1st.
 
 ```
 spotinst_ocean_aws_cluster_cost{ocean_id="o-12345678",ocean_name="my-ocean"} 301.86862
-spotinst_ocean_aws_daemonset_cost{name="kube-proxy",namespace="kube-system",ocean_id="o-12345678",ocean_name="my-ocean"} 3.4616985
-spotinst_ocean_aws_deployment_cost{name="coredns",namespace="kube-system",ocean_id="o-12345678",ocean_name="my-ocean"} 1.2382613
-spotinst_ocean_aws_job_cost{name="kube-janitor-default-27752145",namespace="sdlc-ops",ocean_id="o-12345678",ocean_name="my-ocean"} 0.0021596102
 spotinst_ocean_aws_namespace_cost{namespace="kube-system",ocean_id="o-12345678",ocean_name="my-ocean"} 28.858004
-spotinst_ocean_aws_statefulset_cost{name="jenkins",namespace="jenkins",ocean_id="o-12345678",ocean_name="my-ocean"} 2.004659
+spotinst_ocean_aws_workload_cost{name="coredns",namespace="kube-system",ocean_id="o-12345678",ocean_name="my-ocean",workload="deployment"} 1.2382613
 spotinst_ocean_aws_workload_container_cpu_requested{container="coredns",name="coredns",namespace="kube-system",ocean_id="o-12345678",ocean_name="my-ocean",workload="deployment"} 100
 spotinst_ocean_aws_workload_container_cpu_suggested{container="coredns",name="coredns",namespace="kube-system",ocean_id="o-12345678",ocean_name="my-ocean",workload="deployment"} 100
 spotinst_ocean_aws_workload_container_memory_requested{container="coredns",name="coredns",namespace="kube-system",ocean_id="o-12345678",ocean_name="my-ocean",workload="deployment"} 70

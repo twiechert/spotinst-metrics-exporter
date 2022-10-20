@@ -80,9 +80,9 @@ func TestOceanAWSClusterCostsCollector(t *testing.T) {
                 # HELP spotinst_ocean_aws_namespace_cost Total cost of a namespace
                 # TYPE spotinst_ocean_aws_namespace_cost gauge
                 spotinst_ocean_aws_namespace_cost{namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo"} 190
-                # HELP spotinst_ocean_aws_deployment_cost Total cost of a deployment
-                # TYPE spotinst_ocean_aws_deployment_cost gauge
-                spotinst_ocean_aws_deployment_cost{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo"} 180
+                # HELP spotinst_ocean_aws_workload_cost Total cost of a workload
+                # TYPE spotinst_ocean_aws_workload_cost gauge
+                spotinst_ocean_aws_workload_cost{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 180
             `,
 		},
 	}

@@ -21,16 +21,13 @@ type OceanAWSClusterCostsClient interface {
 // OceanAWSClusterCostsCollector is a prometheus collector for the cost of
 // Spotinst Ocean clusters on AWS.
 type OceanAWSClusterCostsCollector struct {
-	ctx             context.Context
-	logger          logr.Logger
-	client          OceanAWSClusterCostsClient
-	clusters        []*aws.Cluster
-	clusterCost     *prometheus.Desc
-	namespaceCost   *prometheus.Desc
-	deploymentCost  *prometheus.Desc
-	daemonSetCost   *prometheus.Desc
-	statefulSetCost *prometheus.Desc
-	jobCost         *prometheus.Desc
+	ctx           context.Context
+	logger        logr.Logger
+	client        OceanAWSClusterCostsClient
+	clusters      []*aws.Cluster
+	clusterCost   *prometheus.Desc
+	namespaceCost *prometheus.Desc
+	workloadCost  *prometheus.Desc
 }
 
 // NewOceanAWSClusterCostsCollector creates a new OceanAWSClusterCostsCollector
@@ -58,28 +55,10 @@ func NewOceanAWSClusterCostsCollector(
 			[]string{"ocean_id", "ocean_name", "namespace"},
 			nil,
 		),
-		deploymentCost: prometheus.NewDesc(
-			prometheus.BuildFQName("spotinst", "ocean_aws", "deployment_cost"),
-			"Total cost of a deployment",
-			[]string{"ocean_id", "ocean_name", "namespace", "name"},
-			nil,
-		),
-		daemonSetCost: prometheus.NewDesc(
-			prometheus.BuildFQName("spotinst", "ocean_aws", "daemonset_cost"),
-			"Total cost of a daemonset",
-			[]string{"ocean_id", "ocean_name", "namespace", "name"},
-			nil,
-		),
-		statefulSetCost: prometheus.NewDesc(
-			prometheus.BuildFQName("spotinst", "ocean_aws", "statefulset_cost"),
-			"Total cost of a statefulset",
-			[]string{"ocean_id", "ocean_name", "namespace", "name"},
-			nil,
-		),
-		jobCost: prometheus.NewDesc(
-			prometheus.BuildFQName("spotinst", "ocean_aws", "job_cost"),
-			"Total cost of a job",
-			[]string{"ocean_id", "ocean_name", "namespace", "name"},
+		workloadCost: prometheus.NewDesc(
+			prometheus.BuildFQName("spotinst", "ocean_aws", "workload_cost"),
+			"Total cost of a workload",
+			[]string{"ocean_id", "ocean_name", "namespace", "name", "workload"},
 			nil,
 		),
 	}
@@ -91,10 +70,7 @@ func NewOceanAWSClusterCostsCollector(
 func (c *OceanAWSClusterCostsCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- c.clusterCost
 	ch <- c.namespaceCost
-	ch <- c.deploymentCost
-	ch <- c.daemonSetCost
-	ch <- c.statefulSetCost
-	ch <- c.jobCost
+	ch <- c.workloadCost
 }
 
 // Collect implements the prometheus.Collector interface.
@@ -148,22 +124,22 @@ func (c *OceanAWSClusterCostsCollector) collectNamespaceCosts(
 
 		collectGaugeValue(ch, c.namespaceCost, spotinst.Float64Value(namespace.Cost), labelValues)
 
-		c.collectWorkloadCosts(ch, c.deploymentCost, namespace.Deployments, labelValues)
-		c.collectWorkloadCosts(ch, c.daemonSetCost, namespace.DaemonSets, labelValues)
-		c.collectWorkloadCosts(ch, c.statefulSetCost, namespace.StatefulSets, labelValues)
-		c.collectWorkloadCosts(ch, c.jobCost, namespace.Jobs, labelValues)
+		c.collectWorkloadCosts(ch, namespace.Deployments, "deployment", labelValues)
+		c.collectWorkloadCosts(ch, namespace.DaemonSets, "daemonset", labelValues)
+		c.collectWorkloadCosts(ch, namespace.StatefulSets, "statefulset", labelValues)
+		c.collectWorkloadCosts(ch, namespace.Jobs, "job", labelValues)
 	}
 }
 
 func (c *OceanAWSClusterCostsCollector) collectWorkloadCosts(
 	ch chan<- prometheus.Metric,
-	desc *prometheus.Desc,
 	resources []*mcs.Resource,
+	workloadName string,
 	namespaceLabelValues []string,
 ) {
 	for _, resource := range resources {
-		labelValues := append(namespaceLabelValues, spotinst.StringValue(resource.Name))
+		labelValues := append(namespaceLabelValues, spotinst.StringValue(resource.Name), workloadName)
 
-		collectGaugeValue(ch, desc, spotinst.Float64Value(resource.Cost), labelValues)
+		collectGaugeValue(ch, c.workloadCost, spotinst.Float64Value(resource.Cost), labelValues)
 	}
 }
