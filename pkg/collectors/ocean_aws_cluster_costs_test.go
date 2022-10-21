@@ -7,6 +7,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Bonial-International-GmbH/spotinst-metrics-exporter/pkg/labels"
 	"github.com/go-logr/zapr"
 	"github.com/prometheus/client_golang/prometheus/testutil"
 	"github.com/spotinst/spotinst-sdk-go/service/mcs"
@@ -37,10 +38,11 @@ func (m *mockOceanAWSClusterCostsClient) GetClusterCosts(
 
 func TestOceanAWSClusterCostsCollector(t *testing.T) {
 	testCases := []struct {
-		name     string
-		client   func() OceanAWSClusterCostsClient
-		expected string
-		clusters []*aws.Cluster
+		name         string
+		client       func() OceanAWSClusterCostsClient
+		expected     string
+		clusters     []*aws.Cluster
+		customLabels labels.Labels
 	}{
 		{
 			name: "no cluster, no output",
@@ -72,17 +74,18 @@ func TestOceanAWSClusterCostsCollector(t *testing.T) {
 				mockClient.On("GetClusterCosts", mock.Anything, input).Return(output, nil)
 				return mockClient
 			},
-			clusters: oceanClusters("foo"),
+			clusters:     oceanClusters("foo"),
+			customLabels: labels.MustNewLabels("team", "app.kubernetes.io/name"),
 			expected: `
                 # HELP spotinst_ocean_aws_cluster_cost Total cost of an ocean cluster
                 # TYPE spotinst_ocean_aws_cluster_cost gauge
                 spotinst_ocean_aws_cluster_cost{ocean_id="foo",ocean_name="ocean-foo"} 200
                 # HELP spotinst_ocean_aws_namespace_cost Total cost of a namespace
                 # TYPE spotinst_ocean_aws_namespace_cost gauge
-                spotinst_ocean_aws_namespace_cost{namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo"} 190
+                spotinst_ocean_aws_namespace_cost{app_kubernetes_io_name="",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",team="foo-team"} 190
                 # HELP spotinst_ocean_aws_workload_cost Total cost of a workload
                 # TYPE spotinst_ocean_aws_workload_cost gauge
-                spotinst_ocean_aws_workload_cost{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 180
+                spotinst_ocean_aws_workload_cost{app_kubernetes_io_name="test-app",name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",team="foo-team",workload="deployment"} 180
             `,
 		},
 	}
@@ -92,7 +95,7 @@ func TestOceanAWSClusterCostsCollector(t *testing.T) {
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
 			ctx := context.Background()
-			collector := NewOceanAWSClusterCostsCollector(ctx, logger, testCase.client(), testCase.clusters)
+			collector := NewOceanAWSClusterCostsCollector(ctx, logger, testCase.client(), testCase.clusters, testCase.customLabels)
 
 			assert.NoError(t, testutil.CollectAndCompare(collector, strings.NewReader(testCase.expected)))
 		})
@@ -141,6 +144,9 @@ func namespaceCost(namespace string, cost float64, resourceCosts ...*mcs.Resourc
 		Namespace:   spotinst.String(namespace),
 		Cost:        spotinst.Float64(cost),
 		Deployments: resourceCosts,
+		Labels: map[string]string{
+			"team": "foo-team",
+		},
 	}
 }
 
@@ -149,6 +155,10 @@ func resourceCost(namespace, name string, cost float64) *mcs.Resource {
 		Name:      spotinst.String(name),
 		Namespace: spotinst.String(namespace),
 		Cost:      spotinst.Float64(cost),
+		Labels: map[string]string{
+			"app.kubernetes.io/name": "test-app",
+			"team":                   "foo-team",
+		},
 	}
 }
 

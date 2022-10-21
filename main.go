@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/Bonial-International-GmbH/spotinst-metrics-exporter/pkg/collectors"
+	"github.com/Bonial-International-GmbH/spotinst-metrics-exporter/pkg/labels"
 	"github.com/go-logr/logr"
 	"github.com/go-logr/zapr"
 	"github.com/prometheus/client_golang/prometheus"
@@ -39,6 +40,12 @@ func main() {
 	addr := flag.String("listen-address", ":8080", "The address to listen on for HTTP requests.")
 	flag.Parse()
 
+	customLabels, err := labels.CustomLabels()
+	if err != nil {
+		logger.Error(err, "custom labels are invalid")
+		os.Exit(1)
+	}
+
 	ctx, cancel := context.WithCancel(context.Background())
 	go handleSignals(cancel)
 
@@ -53,9 +60,19 @@ func main() {
 		os.Exit(1)
 	}
 
+	collectors := []prometheus.Collector{
+		collectors.NewOceanAWSClusterCostsCollector(ctx, logger, mcsClient, clusters, customLabels),
+		collectors.NewOceanAWSResourceSuggestionsCollector(ctx, logger, oceanAWSClient, clusters),
+	}
+
 	registry := prometheus.NewRegistry()
-	registry.MustRegister(collectors.NewOceanAWSClusterCostsCollector(ctx, logger, mcsClient, clusters))
-	registry.MustRegister(collectors.NewOceanAWSResourceSuggestionsCollector(ctx, logger, oceanAWSClient, clusters))
+
+	for _, collector := range collectors {
+		if err := registry.Register(collector); err != nil {
+			logger.Error(err, "failed to register prometheus collector")
+			os.Exit(1)
+		}
+	}
 
 	handler := http.NewServeMux()
 	handler.HandleFunc("/healthz", healthzHandler)

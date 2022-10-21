@@ -24,6 +24,25 @@ the listen address via the `--listen-address` flag.
 The exporter will listen on `0.0.0.0:8080` by default and exposes prometheus
 metrics at `/metrics` and a health endpoint at `/healthz`.
 
+### Custom labels
+
+Certain metrics also support appending Kubernetes resource labels to the metric
+labels. You can control the labels that should be appended via the
+`SPOTINST_CUSTOM_LABEL_NAMES` environment variable, which accepts a
+comma-separated list of Kubernetes resource label names.
+
+Example: if `SPOTINST_CUSTOM_LABEL_NAMES` contains
+`app.kubernetes.io/name,team`, these labels will also be attached to the
+metrics that support it.
+
+Label names get sanitized so that they are valid prometheus label names, e.g.
+`app.kubernetes.io/name` gets sanitized to `app_kubernetes_io_name`. Custom
+labels that are not present on a Kubernetes resource will result in empty label
+values for the respective metric labels.
+
+Right now only the metrics `spotinst_ocean_aws_namespace_cost` and
+`spotinst_ocean_aws_workload_cost` support this feature.
+
 ## Deployment
 
 The helm chart provided in this repository can be used to deploy the metrics exporter.
