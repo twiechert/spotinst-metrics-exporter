@@ -151,3 +151,29 @@ func resourceCost(namespace, name string, cost float64) *mcs.Resource {
 		Cost:      spotinst.Float64(cost),
 	}
 }
+
+func TestAggregateHighCardinalityResources(t *testing.T) {
+	resources := []*mcs.Resource{
+		resourceCost("foo-ns", "foo", 1),
+		resourceCost("foo-ns", "foo-job-27745697", 1),
+		resourceCost("foo-ns", "baz-job-0e6b40aa-ffa2-4288-80ba-891fbad4b0ba", 20),
+		resourceCost("foo-ns", "foo-job-27745937", 2),
+		resourceCost("foo-ns", "baz-job-0e11d9c9-bcb9-4c71-b99e-afcecb5e5fc5", 10),
+		resourceCost("foo-ns", "bar", 3),
+		resourceCost("foo-ns", "0e11d9c9-bcb9-4c71-b99e-afcecb5e5fc5-qux-job", 5),
+		resourceCost("foo-ns", "0e6b40aa-ffa2-4288-80ba-891fbad4b0ba-qux-job", 7),
+		resourceCost("foo-ns", "27745697-bam-job", 3),
+		resourceCost("foo-ns", "27745937-bam-job", 4),
+	}
+
+	expected := []*mcs.Resource{
+		resourceCost("foo-ns", "foo", 1),
+		resourceCost("foo-ns", "foo-job", 3),
+		resourceCost("foo-ns", "bar", 3),
+		resourceCost("foo-ns", "baz-job", 30),
+		resourceCost("foo-ns", "qux-job", 12),
+		resourceCost("foo-ns", "bam-job", 7),
+	}
+
+	assert.ElementsMatch(t, expected, aggregateHighCardinalityResources(resources))
+}

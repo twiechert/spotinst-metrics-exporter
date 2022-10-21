@@ -2,6 +2,8 @@ package collectors
 
 import (
 	"context"
+	"regexp"
+	"strings"
 	"time"
 
 	"github.com/go-logr/logr"
@@ -137,9 +139,53 @@ func (c *OceanAWSClusterCostsCollector) collectWorkloadCosts(
 	workloadName string,
 	namespaceLabelValues []string,
 ) {
+	resources = aggregateHighCardinalityResources(resources)
+
 	for _, resource := range resources {
 		labelValues := append(namespaceLabelValues, spotinst.StringValue(resource.Name), workloadName)
 
 		collectGaugeValue(ch, c.workloadCost, spotinst.Float64Value(resource.Cost), labelValues)
 	}
+}
+
+// Matches timestamps and UUIDs.
+var uuidRegex = regexp.MustCompile(`[0-9]{8}|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}`)
+
+// AggregateHighCardinalityResources removes timestamps and UUIDs from resource
+// names and aggregates the costs for these.
+//
+// UUIDs and timestamps would cause high metric cardinality and will negatively
+// affect performance and storage usage of the metrics engine that will consume
+// the metrics. This function is a best-effort to avoid this.
+func aggregateHighCardinalityResources(resources []*mcs.Resource) []*mcs.Resource {
+	resourceMap := make(map[string]*mcs.Resource, len(resources))
+
+	for _, resource := range resources {
+		oldName := spotinst.StringValue(resource.Name)
+
+		name := uuidRegex.ReplaceAllString(oldName, "")
+
+		if name != oldName {
+			// Remove hyphens that might be left over after removing the timestamps/UUIDs.
+			name = strings.Trim(strings.ReplaceAll(name, "--", "-"), "-")
+
+			// Sum the costs for existing resources.
+			if existing, ok := resourceMap[name]; ok {
+				resource.Cost = spotinst.Float64(spotinst.Float64Value(resource.Cost) + spotinst.Float64Value(existing.Cost))
+			}
+
+			// Update the name.
+			resource.Name = spotinst.String(name)
+		}
+
+		resourceMap[name] = resource
+	}
+
+	cleaned := make([]*mcs.Resource, 0, len(resourceMap))
+
+	for _, resource := range resourceMap {
+		cleaned = append(cleaned, resource)
+	}
+
+	return cleaned
 }
