@@ -8,7 +8,7 @@ require (
 	github.com/prometheus/client_golang v1.13.0
 	github.com/spotinst/spotinst-sdk-go v1.129.0
 	github.com/stretchr/testify v1.8.0
-	go.uber.org/zap v1.19.0
+	go.uber.org/zap v1.23.0
 )
 
 require (
