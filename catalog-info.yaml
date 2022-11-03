@@ -1,0 +1,18 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: spotinst-metrics-exporter
+  description: A prometheus exporter for metrics from Spotinst.
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - go
+    - helm
+    - metrics
+    - prometheus
+    - spotinst
+spec:
+  type: service
+  owner: ops
+  lifecycle: production

@@ -1,0 +1,5 @@
+site_name: spotinst-metrics-exporter
+site_description: 'A prometheus exporter for metrics from Spotinst.'
+
+nav:
+  - Home: index.md
