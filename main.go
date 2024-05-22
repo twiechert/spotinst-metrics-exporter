@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"flag"
 	"fmt"
 	"net/http"
 	"os"
@@ -11,10 +10,12 @@ import (
 	"time"
 
 	"github.com/Bonial-International-GmbH/spotinst-metrics-exporter/pkg/collectors"
+	"github.com/Bonial-International-GmbH/spotinst-metrics-exporter/pkg/labels"
 	"github.com/go-logr/logr"
 	"github.com/go-logr/zapr"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/spf13/pflag"
 	"github.com/spotinst/spotinst-sdk-go/service/mcs"
 	"github.com/spotinst/spotinst-sdk-go/service/ocean"
 	"github.com/spotinst/spotinst-sdk-go/service/ocean/providers/aws"
@@ -36,8 +37,17 @@ func init() {
 }
 
 func main() {
-	addr := flag.String("listen-address", ":8080", "The address to listen on for HTTP requests.")
-	flag.Parse()
+	addr := pflag.String("listen-address", ":8080", "The address to listen on for HTTP requests.")
+
+	var labelMappings labels.Mappings
+	pflag.Var(
+		&labelMappings,
+		"resource-labels",
+		"Comma-separated list of Kubernetes resource labels (with optional Prometheus label mapping) to propagate onto metrics. E.g. 'mylabel,otherresourcelabel=someprometheuslabel'",
+	)
+	pflag.Parse()
+
+	logger.Info("propagating resource labels", "mapping", labelMappings)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	go handleSignals(cancel)
@@ -54,7 +64,7 @@ func main() {
 	}
 
 	registry := prometheus.NewRegistry()
-	registry.MustRegister(collectors.NewOceanAWSClusterCostsCollector(ctx, logger, mcsClient, clusters))
+	registry.MustRegister(collectors.NewOceanAWSClusterCostsCollector(ctx, logger, mcsClient, clusters, labelMappings))
 	registry.MustRegister(collectors.NewOceanAWSResourceSuggestionsCollector(ctx, logger, oceanAWSClient, clusters))
 
 	handler := http.NewServeMux()

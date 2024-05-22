@@ -6,6 +6,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Bonial-International-GmbH/spotinst-metrics-exporter/pkg/labels"
 	"github.com/go-logr/logr"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/spotinst/spotinst-sdk-go/service/mcs"
@@ -27,6 +28,7 @@ type OceanAWSClusterCostsCollector struct {
 	logger        logr.Logger
 	client        OceanAWSClusterCostsClient
 	clusters      []*aws.Cluster
+	labelMappings labels.Mappings
 	clusterCost   *prometheus.Desc
 	namespaceCost *prometheus.Desc
 	workloadCost  *prometheus.Desc
@@ -39,12 +41,14 @@ func NewOceanAWSClusterCostsCollector(
 	logger logr.Logger,
 	client mcs.Service,
 	clusters []*aws.Cluster,
+	labelMappings labels.Mappings,
 ) *OceanAWSClusterCostsCollector {
 	collector := &OceanAWSClusterCostsCollector{
-		ctx:      ctx,
-		logger:   logger,
-		client:   client,
-		clusters: clusters,
+		ctx:           ctx,
+		logger:        logger,
+		client:        client,
+		clusters:      clusters,
+		labelMappings: labelMappings,
 		clusterCost: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "cluster_cost"),
 			"Total cost of an ocean cluster",
@@ -54,13 +58,13 @@ func NewOceanAWSClusterCostsCollector(
 		namespaceCost: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "namespace_cost"),
 			"Total cost of a namespace",
-			[]string{"ocean_id", "ocean_name", "namespace"},
+			append([]string{"ocean_id", "ocean_name", "namespace"}, labelMappings.LabelNames()...),
 			nil,
 		),
 		workloadCost: prometheus.NewDesc(
 			prometheus.BuildFQName("spotinst", "ocean_aws", "workload_cost"),
 			"Total cost of a workload",
-			[]string{"ocean_id", "ocean_name", "namespace", "name", "workload"},
+			append([]string{"ocean_id", "ocean_name", "namespace", "name", "workload"}, labelMappings.LabelNames()...),
 			nil,
 		),
 	}
@@ -123,8 +127,9 @@ func (c *OceanAWSClusterCostsCollector) collectNamespaceCosts(
 ) {
 	for _, namespace := range namespaces {
 		labelValues := append(clusterLabelValues, spotinst.StringValue(namespace.Namespace))
+		namespaceLabelValues := append(labelValues, c.labelMappings.LabelValues(namespace.Labels)...)
 
-		collectGaugeValue(ch, c.namespaceCost, spotinst.Float64Value(namespace.Cost), labelValues)
+		collectGaugeValue(ch, c.namespaceCost, spotinst.Float64Value(namespace.Cost), namespaceLabelValues)
 
 		c.collectWorkloadCosts(ch, namespace.Deployments, "deployment", labelValues)
 		c.collectWorkloadCosts(ch, namespace.DaemonSets, "daemonset", labelValues)
@@ -143,6 +148,7 @@ func (c *OceanAWSClusterCostsCollector) collectWorkloadCosts(
 
 	for _, resource := range resources {
 		labelValues := append(namespaceLabelValues, spotinst.StringValue(resource.Name), workloadName)
+		labelValues = append(labelValues, c.labelMappings.LabelValues(resource.Labels)...)
 
 		collectGaugeValue(ch, c.workloadCost, spotinst.Float64Value(resource.Cost), labelValues)
 	}

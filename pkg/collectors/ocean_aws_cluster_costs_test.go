@@ -7,6 +7,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Bonial-International-GmbH/spotinst-metrics-exporter/pkg/labels"
 	"github.com/go-logr/zapr"
 	"github.com/prometheus/client_golang/prometheus/testutil"
 	"github.com/spotinst/spotinst-sdk-go/service/mcs"
@@ -37,10 +38,11 @@ func (m *mockOceanAWSClusterCostsClient) GetClusterCosts(
 
 func TestOceanAWSClusterCostsCollector(t *testing.T) {
 	testCases := []struct {
-		name     string
-		client   func() OceanAWSClusterCostsClient
-		expected string
-		clusters []*aws.Cluster
+		name          string
+		client        func() OceanAWSClusterCostsClient
+		expected      string
+		labelMappings labels.Mappings
+		clusters      []*aws.Cluster
 	}{
 		{
 			name: "no cluster, no output",
@@ -85,6 +87,55 @@ func TestOceanAWSClusterCostsCollector(t *testing.T) {
                 spotinst_ocean_aws_workload_cost{name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",workload="deployment"} 180
             `,
 		},
+		{
+			name: "propagate labels",
+			client: func() OceanAWSClusterCostsClient {
+				input := clusterCostInput("foo")
+				output := clusterCostOutput(
+					200,
+					namespaceCostLabels(
+						"foo-ns",
+						190,
+						map[string]string{
+							"team": "foo-team",
+						},
+						resourceCostLabels("foo-ns", "foo-deployment", 180, map[string]string{
+							"team":                   "foo-team",
+							"app.kubernetes.io/name": "foo",
+						}),
+					),
+					namespaceCost(
+						"other-ns",
+						191,
+						resourceCostLabels("other-ns", "other-deployment", 181, map[string]string{
+							"team": "other-team",
+						}),
+					),
+				)
+
+				mockClient := new(mockOceanAWSClusterCostsClient)
+				mockClient.On("GetClusterCosts", mock.Anything, input).Return(output, nil)
+				return mockClient
+			},
+			clusters: oceanClusters("foo"),
+			labelMappings: func() labels.Mappings {
+				mappings, _ := labels.ParseMappings("team,app.kubernetes.io/name=app")
+				return mappings
+			}(),
+			expected: `
+                # HELP spotinst_ocean_aws_cluster_cost Total cost of an ocean cluster
+                # TYPE spotinst_ocean_aws_cluster_cost gauge
+                spotinst_ocean_aws_cluster_cost{ocean_id="foo",ocean_name="ocean-foo"} 200
+                # HELP spotinst_ocean_aws_namespace_cost Total cost of a namespace
+                # TYPE spotinst_ocean_aws_namespace_cost gauge
+                spotinst_ocean_aws_namespace_cost{app="",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",team="foo-team"} 190
+                spotinst_ocean_aws_namespace_cost{app="",namespace="other-ns",ocean_id="foo",ocean_name="ocean-foo",team=""} 191
+                # HELP spotinst_ocean_aws_workload_cost Total cost of a workload
+                # TYPE spotinst_ocean_aws_workload_cost gauge
+                spotinst_ocean_aws_workload_cost{app="foo",name="foo-deployment",namespace="foo-ns",ocean_id="foo",ocean_name="ocean-foo",team="foo-team",workload="deployment"} 180
+                spotinst_ocean_aws_workload_cost{app="",name="other-deployment",namespace="other-ns",ocean_id="foo",ocean_name="ocean-foo",team="other-team",workload="deployment"} 181
+            `,
+		},
 	}
 
 	logger := zapr.NewLogger(zap.NewNop())
@@ -92,7 +143,7 @@ func TestOceanAWSClusterCostsCollector(t *testing.T) {
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
 			ctx := context.Background()
-			collector := NewOceanAWSClusterCostsCollector(ctx, logger, testCase.client(), testCase.clusters)
+			collector := NewOceanAWSClusterCostsCollector(ctx, logger, testCase.client(), testCase.clusters, testCase.labelMappings)
 
 			assert.NoError(t, testutil.CollectAndCompare(collector, strings.NewReader(testCase.expected)))
 		})
@@ -136,20 +187,30 @@ func clusterCostOutput(cost float64, namespaceCosts ...*mcs.Namespace) *mcs.Clus
 	}
 }
 
-func namespaceCost(namespace string, cost float64, resourceCosts ...*mcs.Resource) *mcs.Namespace {
+func namespaceCostLabels(namespace string, cost float64, labels map[string]string, resourceCosts ...*mcs.Resource) *mcs.Namespace {
 	return &mcs.Namespace{
 		Namespace:   spotinst.String(namespace),
 		Cost:        spotinst.Float64(cost),
+		Labels:      labels,
 		Deployments: resourceCosts,
 	}
 }
 
-func resourceCost(namespace, name string, cost float64) *mcs.Resource {
+func namespaceCost(namespace string, cost float64, resourceCosts ...*mcs.Resource) *mcs.Namespace {
+	return namespaceCostLabels(namespace, cost, nil, resourceCosts...)
+}
+
+func resourceCostLabels(namespace, name string, cost float64, labels map[string]string) *mcs.Resource {
 	return &mcs.Resource{
 		Name:      spotinst.String(name),
 		Namespace: spotinst.String(namespace),
 		Cost:      spotinst.Float64(cost),
+		Labels:    labels,
 	}
+}
+
+func resourceCost(namespace, name string, cost float64) *mcs.Resource {
+	return resourceCostLabels(namespace, name, cost, nil)
 }
 
 func TestAggregateHighCardinalityResources(t *testing.T) {
