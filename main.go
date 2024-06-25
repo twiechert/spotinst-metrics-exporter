@@ -21,6 +21,8 @@ import (
 	"github.com/spotinst/spotinst-sdk-go/service/ocean/providers/aws"
 	"github.com/spotinst/spotinst-sdk-go/spotinst/session"
 	"go.uber.org/zap"
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
 )
 
 var logger logr.Logger
@@ -64,7 +66,18 @@ func main() {
 	}
 
 	registry := prometheus.NewRegistry()
-	registry.MustRegister(collectors.NewOceanAWSClusterCostsCollector(ctx, logger, mcsClient, clusters, labelMappings))
+	// creates the in-cluster config
+	config, err := rest.InClusterConfig()
+	if err != nil {
+		panic(err.Error())
+	}
+	// creates the clientset
+	clientset, err := kubernetes.NewForConfig(config)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	registry.MustRegister(collectors.NewOceanAWSClusterCostsCollector(ctx, logger, mcsClient, clientset, clusters, labelMappings))
 	registry.MustRegister(collectors.NewOceanAWSResourceSuggestionsCollector(ctx, logger, oceanAWSClient, clusters))
 
 	handler := http.NewServeMux()
