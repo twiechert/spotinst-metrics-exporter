@@ -2,17 +2,13 @@ package collectors
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/Bonial-International-GmbH/spotinst-metrics-exporter/pkg/labels"
 	"github.com/go-logr/logr"
-	"github.com/patrickmn/go-cache"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/spotinst/spotinst-sdk-go/service/ocean/providers/aws"
 	"github.com/spotinst/spotinst-sdk-go/spotinst"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
 )
 
 // OceanAWSClusterCostsClient is the interface for fetching Ocean cluster costs.
@@ -25,17 +21,16 @@ type OceanAWSClusterCostsClient interface {
 // OceanAWSClusterCostsCollector is a prometheus collector for the cost of
 // Spotinst Ocean clusters on AWS.
 type OceanAWSClusterCostsCollector struct {
-	ctx           context.Context
-	logger        logr.Logger
-	client        OceanAWSClusterCostsClient
-	clusters      []*aws.Cluster
-	labelMappings labels.Mappings
-	clusterCost   *prometheus.Desc
-	namespaceCost *prometheus.Desc
-	workloadCost  *prometheus.Desc
-	resourceCost  *prometheus.Desc
-	kubeClient    *kubernetes.Clientset
-	labelCache    *cache.Cache
+	ctx            context.Context
+	logger         logr.Logger
+	client         OceanAWSClusterCostsClient
+	clusters       []*aws.Cluster
+	labelMappings  labels.Mappings
+	clusterCost    *prometheus.Desc
+	namespaceCost  *prometheus.Desc
+	workloadCost   *prometheus.Desc
+	resourceCost   *prometheus.Desc
+	labelRetriever K8sLabelRetriever
 }
 
 // NewOceanAWSClusterCostsCollector creates a new OceanAWSClusterCostsCollector
@@ -44,15 +39,14 @@ func NewOceanAWSClusterCostsCollector(
 	ctx context.Context,
 	logger logr.Logger,
 	client OceanAWSClusterCostsClient,
-	kubeClient *kubernetes.Clientset,
 	clusters []*aws.Cluster,
 	labelMappings labels.Mappings,
+	labelRetriever K8sLabelRetriever,
 ) *OceanAWSClusterCostsCollector {
 	collector := &OceanAWSClusterCostsCollector{
 		ctx:           ctx,
 		logger:        logger,
 		client:        client,
-		kubeClient:    kubeClient,
 		clusters:      clusters,
 		labelMappings: labelMappings,
 		clusterCost: prometheus.NewDesc(
@@ -80,7 +74,7 @@ func NewOceanAWSClusterCostsCollector(
 			append([]string{"ocean_id", "ocean_name", "namespace", "name", "workload", "resource"}, labelMappings.LabelNames()...),
 			nil,
 		),
-		labelCache: cache.New(60*time.Minute, 10*time.Minute),
+		labelRetriever: labelRetriever,
 	}
 
 	return collector
@@ -128,9 +122,10 @@ func (c *OceanAWSClusterCostsCollector) collectClusterCosts(
 	aggregatedClusterCost *aws.AggregatedClusterCost,
 	cluster *aws.Cluster,
 ) {
-	labelValues := []string{spotinst.StringValue(cluster.ID), spotinst.StringValue(cluster.Name)}
+	clusterId := spotinst.StringValue(cluster.ID)
+	clusterLabelValues := []string{clusterId, spotinst.StringValue(cluster.Name)}
 
-	collectGaugeValue(ch, c.clusterCost, spotinst.Float64Value(aggregatedClusterCost.Result.TotalForDuration.Summary.Total), labelValues)
+	collectGaugeValue(ch, c.clusterCost, spotinst.Float64Value(aggregatedClusterCost.Result.TotalForDuration.Summary.Total), clusterLabelValues)
 
 	// since we aggregate over workload and not
 	aggregatedNamespaceCost := make(map[string]float64)
@@ -138,7 +133,8 @@ func (c *OceanAWSClusterCostsCollector) collectClusterCosts(
 
 		// usually there is only one workload per workload name, unless the same workload exists in multiple namespaces
 		for _, resource := range aggregation.Resources {
-			namespace, workloadCost := c.collectWorkloadCosts(ch, resource, labelValues)
+
+			namespace, workloadCost := c.collectWorkloadCosts(ch, resource, clusterId, clusterLabelValues)
 
 			if currentNamespaceCost, exists := aggregatedNamespaceCost[namespace]; exists {
 				aggregatedNamespaceCost[namespace] = currentNamespaceCost + workloadCost
@@ -149,22 +145,21 @@ func (c *OceanAWSClusterCostsCollector) collectClusterCosts(
 	}
 
 	for namespace, namespaceCost := range aggregatedNamespaceCost {
-		labels, err := c.getLabelsForResource(namespace, namespace, "Namespace")
+		labels, err := c.labelRetriever.GetLabelFor(c.ctx, "Namspace", namespace, clusterId, namespace)
 		if err != nil {
-			c.logger.Error(err, "failed to fetch namespace labels from kube api")
+			c.logger.Error(err, "failed to fetch namespace labels from spotinst api")
 		} else {
-			namespaceLabelValues := append(labelValues, c.labelMappings.LabelValues(labels)...)
+			namespaceLabelValues := append(clusterLabelValues, c.labelMappings.LabelValues(labels)...)
 			collectGaugeValue(ch, c.namespaceCost, namespaceCost, namespaceLabelValues)
 		}
 	}
-
-	//c.collectNamespaceCosts(ch, cluster.Namespaces, labelValues)
 
 }
 
 func (c *OceanAWSClusterCostsCollector) collectWorkloadCosts(
 	ch chan<- prometheus.Metric,
 	workload aws.AggregatedCostResource,
+	clusterId string,
 	namespaceLabelValues []string,
 ) (string, float64) {
 	workloadType := workload.MetaData.Type
@@ -176,12 +171,11 @@ func (c *OceanAWSClusterCostsCollector) collectWorkloadCosts(
 	workloadComputeCost := spotinst.Float64Value(workload.Storage.Total)
 
 	workloadNetworkCost := workloadTotalCost - workloadStorageCost - workloadComputeCost
-
-	labelValues := append(namespaceLabelValues, spotinst.StringValue(workloadName), *workloadType)
-	workloadLabels, err := c.getLabelsForResource(*workloadName, *workloadNamespace, *workloadType)
+	labelValues := append(namespaceLabelValues, spotinst.StringValue(workloadNamespace), spotinst.StringValue(workloadName), *workloadType)
+	workloadLabels, err := c.labelRetriever.GetLabelFor(c.ctx, *workloadType, *workloadNamespace, clusterId, *workloadName)
 
 	if err != nil {
-		c.logger.Error(err, "failed to fetch workload labels from kube api")
+		c.logger.Error(err, "failed to fetch workload labels from label provider")
 
 	} else {
 		labelValues = append(labelValues, c.labelMappings.LabelValues(workloadLabels)...)
@@ -191,41 +185,4 @@ func (c *OceanAWSClusterCostsCollector) collectWorkloadCosts(
 
 	}
 	return *workloadNamespace, workloadTotalCost
-}
-
-type LabelProvider interface {
-	GetLabels() map[string]string
-}
-
-func (c *OceanAWSClusterCostsCollector) getLabelsForResource(resourceName string, namespaceName string, resourceType string) (map[string]string, error) {
-
-	var labelProvider LabelProvider
-	var err error
-	cacheKey := fmt.Sprintf("%s:%s:%s", resourceType, namespaceName, resourceName)
-
-	labels, found := c.labelCache.Get(cacheKey)
-	if found {
-		return labels.(map[string]string), nil
-	}
-
-	switch resourceType {
-	case "Namespace":
-		labelProvider, err = c.kubeClient.CoreV1().Namespaces().Get(context.TODO(), resourceName, metav1.GetOptions{})
-	case "Deployment":
-		labelProvider, err = c.kubeClient.AppsV1().Deployments(namespaceName).Get(context.TODO(), resourceName, metav1.GetOptions{})
-	case "StatefulSet":
-		labelProvider, err = c.kubeClient.AppsV1().StatefulSets(namespaceName).Get(context.TODO(), resourceName, metav1.GetOptions{})
-	case "Job":
-		labelProvider, err = c.kubeClient.BatchV1().Jobs(namespaceName).Get(context.TODO(), resourceName, metav1.GetOptions{})
-	case "DaemonSet":
-		labelProvider, err = c.kubeClient.AppsV1().DaemonSets(namespaceName).Get(context.TODO(), resourceName, metav1.GetOptions{})
-	}
-
-	if err == nil {
-		c.labelCache.Set(cacheKey, labelProvider.GetLabels(), cache.DefaultExpiration)
-		return labelProvider.GetLabels(), nil
-	}
-
-	return nil, err
-
 }
