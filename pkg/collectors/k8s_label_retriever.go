@@ -7,7 +7,6 @@ import (
 
 	"github.com/patrickmn/go-cache"
 
-	"github.com/Bonial-International-GmbH/spotinst-metrics-exporter/pkg/labels"
 	"github.com/go-logr/logr"
 	"github.com/spotinst/spotinst-sdk-go/service/mcs"
 	"github.com/spotinst/spotinst-sdk-go/service/ocean/providers/aws"
@@ -22,7 +21,11 @@ type OceanMscAWSClusterCostsClient interface {
 }
 
 type K8sLabelRetriever interface {
-	GetLabelFor(ctx context.Context, resourceType string, namespace string, cluster string, resourceIdentifier string) (map[string]string, error)
+	GetLabelFor(ctx context.Context,
+		resourceType string,
+		namespace string,
+		cluster string,
+		resourceIdentifier string) (map[string]string, error)
 	PopulateOnce()
 	PopulationLoop()
 }
@@ -34,7 +37,6 @@ type K8sOceanLabelRetriever struct {
 	logger         logr.Logger
 	client         OceanMscAWSClusterCostsClient
 	clusters       []*aws.Cluster
-	labelMappings  labels.Mappings
 	labelCache     *cache.Cache
 	isInitialized  bool
 	lookupInterval int32
