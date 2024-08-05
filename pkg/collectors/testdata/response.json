@@ -1,31 +1,30 @@
 {
-
         "aggregatedClusterCosts": [
             {
                 "result": {
                     "totalForDuration": {
-                        "startTime": "Tue Jul 02 00:00:00 UTC 2024",
-                        "endTime": "Fri Jul 12 00:00:00 UTC 2024",
+                        "startTime": "Mon Jul 01 00:00:00 UTC 2024",
+                        "endTime": "Tue Jul 30 00:00:00 UTC 2024",
                         "summary": {
-                            "total": 64.46566572756552,
+                            "total": 101.94989301459283,
                             "compute": {
-                                "total": 64.06714786975552,
+                                "total": 101.30652151909283,
                                 "workloads": {
-                                    "total": 64.06714786975552
+                                    "total": 101.30652151909283
                                 },
                                 "headroom": {
                                     "total": 0
                                 }
                             },
                             "storage": {
-                                "total": 0.387697763,
+                                "total": 0.6283670280000003,
                                 "block": {
-                                    "total": 0.387697763,
+                                    "total": 0.6283670280000003,
                                     "ebsPv": {
                                         "total": 0
                                     },
                                     "nonPv": {
-                                        "total": 0.387697763
+                                        "total": 0.6283670280000003
                                     }
                                 },
                                 "file": {
@@ -36,24 +35,24 @@
                                 }
                             },
                             "networking": {
-                                "totalCost": 0.010820094809999998,
-                                "totalUsage": 0.12022792100000002,
+                                "totalCost": 0.015004467499999999,
+                                "totalUsage": 0.166723862,
                                 "total": {
                                     "out": {
-                                        "cost": 0.010820094809999998,
-                                        "usage": 0.12022792100000002
+                                        "cost": 0.015004467499999999,
+                                        "usage": 0.166723862
                                     }
                                 },
                                 "internet": {
                                     "out": {
-                                        "cost": 0.010820042549999999,
-                                        "usage": 0.12022269500000002
+                                        "cost": 0.015004382489999999,
+                                        "usage": 0.166715361
                                     }
                                 },
                                 "interAZ": {
                                     "out": {
-                                        "cost": 5.2260000000000006e-8,
-                                        "usage": 0.0000052260000000000004
+                                        "cost": 8.501e-8,
+                                        "usage": 0.000008501
                                     }
                                 }
                             }
@@ -63,19 +62,19 @@
                             "aggregations": {
                                 "destinations-api": {
                                     "summary": {
-                                        "total": 0.6841574027813946,
+                                        "total": 2.147660909962685,
                                         "compute": {
-                                            "total": 0.6747544499713947
+                                            "total": 2.119333816152685
                                         },
                                         "storage": {
-                                            "total": 0.009398649999999998,
+                                            "total": 0.028322790999999996,
                                             "block": {
-                                                "total": 0.009398649999999998,
+                                                "total": 0.028322790999999996,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0.009398649999999998
+                                                    "total": 0.028322790999999996
                                                 }
                                             },
                                             "file": {
@@ -99,7 +98,10 @@
                                                     "cost": 0.0000043028099999999996,
                                                     "usage": 0.000047809
                                                 }
-                                            }
+                                            },
+                                            "interAZ": {},
+                                            "intraAZ": {},
+                                            "interRegion": {}
                                         }
                                     },
                                     "resources": [
@@ -109,19 +111,19 @@
                                                 "type": "Deployment",
                                                 "namespace": "preproduction-00bbc41c93"
                                             },
-                                            "total": 0.6841574027813946,
+                                            "total": 2.147660909962685,
                                             "compute": {
-                                                "total": 0.6747544499713947
+                                                "total": 2.119333816152685
                                             },
                                             "storage": {
-                                                "total": 0.009398649999999998,
+                                                "total": 0.028322790999999996,
                                                 "block": {
-                                                    "total": 0.009398649999999998,
+                                                    "total": 0.028322790999999996,
                                                     "ebsPv": {
                                                         "total": 0
                                                     },
                                                     "nonPv": {
-                                                        "total": 0.009398649999999998
+                                                        "total": 0.028322790999999996
                                                     }
                                                 },
                                                 "file": {
@@ -145,7 +147,10 @@
                                                         "cost": 0.0000043028099999999996,
                                                         "usage": 0.000047809
                                                     }
-                                                }
+                                                },
+                                                "interAZ": {},
+                                                "intraAZ": {},
+                                                "interRegion": {}
                                             }
                                         },
                                         {
@@ -164,19 +169,19 @@
                                 },
                                 "seo-cms": {
                                     "summary": {
-                                        "total": 0.0943468672739813,
+                                        "total": 0.10416758495540922,
                                         "compute": {
-                                            "total": 0.0812666572739813
+                                            "total": 0.08795639495540922
                                         },
                                         "storage": {
-                                            "total": 0.01308021,
+                                            "total": 0.01621119,
                                             "block": {
-                                                "total": 0.01308021,
+                                                "total": 0.01621119,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0.01308021
+                                                    "total": 0.01621119
                                                 }
                                             },
                                             "file": {
@@ -195,19 +200,19 @@
                                                 "type": "Deployment",
                                                 "namespace": "preproduction-688fc47235"
                                             },
-                                            "total": 0.0943468672739813,
+                                            "total": 0.10416758495540922,
                                             "compute": {
-                                                "total": 0.0812666572739813
+                                                "total": 0.08795639495540922
                                             },
                                             "storage": {
-                                                "total": 0.01308021,
+                                                "total": 0.01621119,
                                                 "block": {
-                                                    "total": 0.01308021,
+                                                    "total": 0.01621119,
                                                     "ebsPv": {
                                                         "total": 0
                                                     },
                                                     "nonPv": {
-                                                        "total": 0.01308021
+                                                        "total": 0.01621119
                                                     }
                                                 },
                                                 "file": {
@@ -234,6 +239,77 @@
                                     ]
                                 },
                                 "web-gateway": {
+                                    "summary": {
+                                        "total": 0.01684717534661723,
+                                        "compute": {
+                                            "total": 0.01466639534661723
+                                        },
+                                        "storage": {
+                                            "total": 0.00218078,
+                                            "block": {
+                                                "total": 0.00218078,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.00218078
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "web-gateway",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-23d82fb4fa"
+                                            },
+                                            "total": 0.01684717534661723,
+                                            "compute": {
+                                                "total": 0.01466639534661723
+                                            },
+                                            "storage": {
+                                                "total": 0.00218078,
+                                                "block": {
+                                                    "total": 0.00218078,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.00218078
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {}
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "global-account-api": {
                                     "summary": {
                                         "total": 0,
                                         "compute": {
@@ -351,19 +427,19 @@
                                 },
                                 "user-management": {
                                     "summary": {
-                                        "total": 0,
+                                        "total": 0.052559237666895714,
                                         "compute": {
-                                            "total": 0
+                                            "total": 0.048940567666895717
                                         },
                                         "storage": {
-                                            "total": 0,
+                                            "total": 0.00361867,
                                             "block": {
-                                                "total": 0,
+                                                "total": 0.00361867,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0
+                                                    "total": 0.00361867
                                                 }
                                             },
                                             "file": {
@@ -376,6 +452,36 @@
                                         "networking": {}
                                     },
                                     "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "user-management",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-a719286109"
+                                            },
+                                            "total": 0.052559237666895714,
+                                            "compute": {
+                                                "total": 0.048940567666895717
+                                            },
+                                            "storage": {
+                                                "total": 0.00361867,
+                                                "block": {
+                                                    "total": 0.00361867,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.00361867
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {}
+                                        },
                                         {
                                             "metadata": {
                                                 "name": "UnusedStorage",
@@ -392,19 +498,19 @@
                                 },
                                 "seo-api-v2": {
                                     "summary": {
-                                        "total": 0.09755325668297146,
+                                        "total": 0.1543842228447597,
                                         "compute": {
-                                            "total": 0.08922596668297146
+                                            "total": 0.1373068728447597
                                         },
                                         "storage": {
-                                            "total": 0.00832729,
+                                            "total": 0.017077349999999998,
                                             "block": {
-                                                "total": 0.00832729,
+                                                "total": 0.017077349999999998,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0.00832729
+                                                    "total": 0.017077349999999998
                                                 }
                                             },
                                             "file": {
@@ -423,19 +529,19 @@
                                                 "type": "Deployment",
                                                 "namespace": "preproduction-b594e3be02"
                                             },
-                                            "total": 0.09755325668297146,
+                                            "total": 0.1543842228447597,
                                             "compute": {
-                                                "total": 0.08922596668297146
+                                                "total": 0.1373068728447597
                                             },
                                             "storage": {
-                                                "total": 0.00832729,
+                                                "total": 0.017077349999999998,
                                                 "block": {
-                                                    "total": 0.00832729,
+                                                    "total": 0.017077349999999998,
                                                     "ebsPv": {
                                                         "total": 0
                                                     },
                                                     "nonPv": {
-                                                        "total": 0.00832729
+                                                        "total": 0.017077349999999998
                                                     }
                                                 },
                                                 "file": {
@@ -463,19 +569,19 @@
                                 },
                                 "tracking-api-k8s": {
                                     "summary": {
-                                        "total": 0,
+                                        "total": 0.024546618057233002,
                                         "compute": {
-                                            "total": 0
+                                            "total": 0.024146719307233003
                                         },
                                         "storage": {
-                                            "total": 0,
+                                            "total": 0.000399866,
                                             "block": {
-                                                "total": 0,
+                                                "total": 0.000399866,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0
+                                                    "total": 0.000399866
                                                 }
                                             },
                                             "file": {
@@ -485,9 +591,69 @@
                                                 }
                                             }
                                         },
-                                        "networking": {}
+                                        "networking": {
+                                            "totalCost": 3.275e-8,
+                                            "totalUsage": 0.000003275,
+                                            "total": {
+                                                "out": {
+                                                    "cost": 3.275e-8,
+                                                    "usage": 0.000003275
+                                                }
+                                            },
+                                            "interAZ": {
+                                                "out": {
+                                                    "cost": 3.275e-8,
+                                                    "usage": 0.000003275
+                                                }
+                                            }
+                                        }
                                     },
                                     "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "tracking-api-k8s",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-a7f5a9b49a"
+                                            },
+                                            "total": 0.024546618057233002,
+                                            "compute": {
+                                                "total": 0.024146719307233003
+                                            },
+                                            "storage": {
+                                                "total": 0.000399866,
+                                                "block": {
+                                                    "total": 0.000399866,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.000399866
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {
+                                                "totalCost": 3.275e-8,
+                                                "totalUsage": 0.000003275,
+                                                "total": {
+                                                    "out": {
+                                                        "cost": 3.275e-8,
+                                                        "usage": 0.000003275
+                                                    }
+                                                },
+                                                "interAZ": {
+                                                    "out": {
+                                                        "cost": 3.275e-8,
+                                                        "usage": 0.000003275
+                                                    }
+                                                }
+                                            }
+                                        },
                                         {
                                             "metadata": {
                                                 "name": "UnusedStorage",
@@ -504,19 +670,19 @@
                                 },
                                 "content-search-api": {
                                     "summary": {
-                                        "total": 6.025672511677142,
+                                        "total": 17.758896533892518,
                                         "compute": {
-                                            "total": 5.998579585547142
+                                            "total": 17.679106396022515
                                         },
                                         "storage": {
-                                            "total": 0.027062717000000007,
+                                            "total": 0.07974485500000002,
                                             "block": {
-                                                "total": 0.027062717000000007,
+                                                "total": 0.07974485500000002,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0.027062717000000007
+                                                    "total": 0.07974485500000002
                                                 }
                                             },
                                             "file": {
@@ -527,18 +693,18 @@
                                             }
                                         },
                                         "networking": {
-                                            "totalCost": 0.00003020913,
-                                            "totalUsage": 0.000335657,
+                                            "totalCost": 0.00004528287,
+                                            "totalUsage": 0.000503143,
                                             "total": {
                                                 "out": {
-                                                    "cost": 0.00003020913,
-                                                    "usage": 0.000335657
+                                                    "cost": 0.00004528287,
+                                                    "usage": 0.000503143
                                                 }
                                             },
                                             "internet": {
                                                 "out": {
-                                                    "cost": 0.00003020913,
-                                                    "usage": 0.000335657
+                                                    "cost": 0.00004528287,
+                                                    "usage": 0.000503143
                                                 }
                                             },
                                             "interAZ": {},
@@ -553,19 +719,19 @@
                                                 "type": "Deployment",
                                                 "namespace": "preproduction-513b0e44df"
                                             },
-                                            "total": 6.025672511677142,
+                                            "total": 17.758896533892518,
                                             "compute": {
-                                                "total": 5.998579585547142
+                                                "total": 17.679106396022515
                                             },
                                             "storage": {
-                                                "total": 0.027062717000000007,
+                                                "total": 0.07974485500000002,
                                                 "block": {
-                                                    "total": 0.027062717000000007,
+                                                    "total": 0.07974485500000002,
                                                     "ebsPv": {
                                                         "total": 0
                                                     },
                                                     "nonPv": {
-                                                        "total": 0.027062717000000007
+                                                        "total": 0.07974485500000002
                                                     }
                                                 },
                                                 "file": {
@@ -576,18 +742,18 @@
                                                 }
                                             },
                                             "networking": {
-                                                "totalCost": 0.00003020913,
-                                                "totalUsage": 0.000335657,
+                                                "totalCost": 0.00004528287,
+                                                "totalUsage": 0.000503143,
                                                 "total": {
                                                     "out": {
-                                                        "cost": 0.00003020913,
-                                                        "usage": 0.000335657
+                                                        "cost": 0.00004528287,
+                                                        "usage": 0.000503143
                                                     }
                                                 },
                                                 "internet": {
                                                     "out": {
-                                                        "cost": 0.00003020913,
-                                                        "usage": 0.000335657
+                                                        "cost": 0.00004528287,
+                                                        "usage": 0.000503143
                                                     }
                                                 },
                                                 "interAZ": {},
@@ -611,19 +777,19 @@
                                 },
                                 "permission-api": {
                                     "summary": {
-                                        "total": 0,
+                                        "total": 0.012790973095857007,
                                         "compute": {
-                                            "total": 0
+                                            "total": 0.010753563095857007
                                         },
                                         "storage": {
-                                            "total": 0,
+                                            "total": 0.00203741,
                                             "block": {
-                                                "total": 0,
+                                                "total": 0.00203741,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0
+                                                    "total": 0.00203741
                                                 }
                                             },
                                             "file": {
@@ -636,6 +802,40 @@
                                         "networking": {}
                                     },
                                     "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "permission-api",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-070529e704"
+                                            },
+                                            "total": 0.012790973095857007,
+                                            "compute": {
+                                                "total": 0.010753563095857007
+                                            },
+                                            "storage": {
+                                                "total": 0.00203741,
+                                                "block": {
+                                                    "total": 0.00203741,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.00203741
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {
+                                                "totalCost": 0,
+                                                "totalUsage": 0,
+                                                "total": {}
+                                            }
+                                        },
                                         {
                                             "metadata": {
                                                 "name": "UnusedStorage",
@@ -652,19 +852,19 @@
                                 },
                                 "content-lookup-api": {
                                     "summary": {
-                                        "total": 16.88998358797032,
+                                        "total": 19.03922176234484,
                                         "compute": {
-                                            "total": 16.70936797115032
+                                            "total": 18.82966075552484
                                         },
                                         "storage": {
-                                            "total": 0.18060383000000002,
+                                            "total": 0.20954922000000004,
                                             "block": {
-                                                "total": 0.18060383000000002,
+                                                "total": 0.20954922000000004,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0.18060383000000002
+                                                    "total": 0.20954922000000004
                                                 }
                                             },
                                             "file": {
@@ -706,19 +906,19 @@
                                                 "type": "Deployment",
                                                 "namespace": "preproduction-bff4dcd4e0"
                                             },
-                                            "total": 16.88998358797032,
+                                            "total": 19.03922176234484,
                                             "compute": {
-                                                "total": 16.70936797115032
+                                                "total": 18.82966075552484
                                             },
                                             "storage": {
-                                                "total": 0.18060383000000002,
+                                                "total": 0.20954922000000004,
                                                 "block": {
-                                                    "total": 0.18060383000000002,
+                                                    "total": 0.20954922000000004,
                                                     "ebsPv": {
                                                         "total": 0
                                                     },
                                                     "nonPv": {
-                                                        "total": 0.18060383000000002
+                                                        "total": 0.20954922000000004
                                                     }
                                                 },
                                                 "file": {
@@ -769,19 +969,19 @@
                                 },
                                 "web-app": {
                                     "summary": {
-                                        "total": 0,
+                                        "total": 0.044160201513445775,
                                         "compute": {
-                                            "total": 0
+                                            "total": 0.04214068151344578
                                         },
                                         "storage": {
-                                            "total": 0,
+                                            "total": 0.00201952,
                                             "block": {
-                                                "total": 0,
+                                                "total": 0.00201952,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0
+                                                    "total": 0.00201952
                                                 }
                                             },
                                             "file": {
@@ -794,6 +994,36 @@
                                         "networking": {}
                                     },
                                     "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "web-app",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-821a23ed10"
+                                            },
+                                            "total": 0.044160201513445775,
+                                            "compute": {
+                                                "total": 0.04214068151344578
+                                            },
+                                            "storage": {
+                                                "total": 0.00201952,
+                                                "block": {
+                                                    "total": 0.00201952,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.00201952
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {}
+                                        },
                                         {
                                             "metadata": {
                                                 "name": "UnusedStorage",
@@ -810,19 +1040,19 @@
                                 },
                                 "geo-location-api": {
                                     "summary": {
-                                        "total": 37.47056300137262,
+                                        "total": 56.027565485383214,
                                         "compute": {
-                                            "total": 37.36758879332262
+                                            "total": 55.875665292473215
                                         },
                                         "storage": {
-                                            "total": 0.09279064999999999,
+                                            "total": 0.13783041199999999,
                                             "block": {
-                                                "total": 0.09279064999999999,
+                                                "total": 0.13783041199999999,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0.09279064999999999
+                                                    "total": 0.13783041199999999
                                                 }
                                             },
                                             "file": {
@@ -833,18 +1063,18 @@
                                             }
                                         },
                                         "networking": {
-                                            "totalCost": 0.01018355805,
-                                            "totalUsage": 0.11315064500000001,
+                                            "totalCost": 0.01406978091,
+                                            "totalUsage": 0.15633089900000002,
                                             "total": {
                                                 "out": {
-                                                    "cost": 0.01018355805,
-                                                    "usage": 0.11315064500000001
+                                                    "cost": 0.01406978091,
+                                                    "usage": 0.15633089900000002
                                                 }
                                             },
                                             "internet": {
                                                 "out": {
-                                                    "cost": 0.01018355805,
-                                                    "usage": 0.11315064500000001
+                                                    "cost": 0.01406978091,
+                                                    "usage": 0.15633089900000002
                                                 }
                                             },
                                             "interAZ": {},
@@ -859,19 +1089,19 @@
                                                 "type": "Deployment",
                                                 "namespace": "preproduction-072b4f7204"
                                             },
-                                            "total": 37.47056300137262,
+                                            "total": 56.027565485383214,
                                             "compute": {
-                                                "total": 37.36758879332262
+                                                "total": 55.875665292473215
                                             },
                                             "storage": {
-                                                "total": 0.09279064999999999,
+                                                "total": 0.13783041199999999,
                                                 "block": {
-                                                    "total": 0.09279064999999999,
+                                                    "total": 0.13783041199999999,
                                                     "ebsPv": {
                                                         "total": 0
                                                     },
                                                     "nonPv": {
-                                                        "total": 0.09279064999999999
+                                                        "total": 0.13783041199999999
                                                     }
                                                 },
                                                 "file": {
@@ -882,18 +1112,18 @@
                                                 }
                                             },
                                             "networking": {
-                                                "totalCost": 0.01018355805,
-                                                "totalUsage": 0.11315064500000001,
+                                                "totalCost": 0.01406978091,
+                                                "totalUsage": 0.15633089900000002,
                                                 "total": {
                                                     "out": {
-                                                        "cost": 0.01018355805,
-                                                        "usage": 0.11315064500000001
+                                                        "cost": 0.01406978091,
+                                                        "usage": 0.15633089900000002
                                                     }
                                                 },
                                                 "internet": {
                                                     "out": {
-                                                        "cost": 0.01018355805,
-                                                        "usage": 0.11315064500000001
+                                                        "cost": 0.01406978091,
+                                                        "usage": 0.15633089900000002
                                                     }
                                                 },
                                                 "interAZ": {},
@@ -988,19 +1218,19 @@
                                 },
                                 "web-content-viewer-be": {
                                     "summary": {
-                                        "total": 0,
+                                        "total": 0.04827335688873492,
                                         "compute": {
-                                            "total": 0
+                                            "total": 0.03884977688873492
                                         },
                                         "storage": {
-                                            "total": 0,
+                                            "total": 0.00942358,
                                             "block": {
-                                                "total": 0,
+                                                "total": 0.00942358,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0
+                                                    "total": 0.00942358
                                                 }
                                             },
                                             "file": {
@@ -1013,6 +1243,36 @@
                                         "networking": {}
                                     },
                                     "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "web-content-viewer-be",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-689074fedf"
+                                            },
+                                            "total": 0.04827335688873492,
+                                            "compute": {
+                                                "total": 0.03884977688873492
+                                            },
+                                            "storage": {
+                                                "total": 0.00942358,
+                                                "block": {
+                                                    "total": 0.00942358,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.00942358
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {}
+                                        },
                                         {
                                             "metadata": {
                                                 "name": "UnusedStorage",
@@ -1070,19 +1330,19 @@
                                 },
                                 "content-api": {
                                     "summary": {
-                                        "total": 2.9311871051080023,
+                                        "total": 5.901028056088324,
                                         "compute": {
-                                            "total": 2.9033311471080023
+                                            "total": 5.835628199088324
                                         },
                                         "storage": {
-                                            "total": 0.027265719999999993,
+                                            "total": 0.06480961899999998,
                                             "block": {
-                                                "total": 0.027265719999999993,
+                                                "total": 0.06480961899999998,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0.027265719999999993
+                                                    "total": 0.06480961899999998
                                                 }
                                             },
                                             "file": {
@@ -1119,19 +1379,19 @@
                                                 "type": "Deployment",
                                                 "namespace": "preproduction-45be1c645a"
                                             },
-                                            "total": 2.9311871051080023,
+                                            "total": 5.901028056088324,
                                             "compute": {
-                                                "total": 2.9033311471080023
+                                                "total": 5.835628199088324
                                             },
                                             "storage": {
-                                                "total": 0.027265719999999993,
+                                                "total": 0.06480961899999998,
                                                 "block": {
-                                                    "total": 0.027265719999999993,
+                                                    "total": 0.06480961899999998,
                                                     "ebsPv": {
                                                         "total": 0
                                                     },
                                                     "nonPv": {
-                                                        "total": 0.027265719999999993
+                                                        "total": 0.06480961899999998
                                                     }
                                                 },
                                                 "file": {
@@ -1177,19 +1437,19 @@
                                 },
                                 "content-gateway": {
                                     "summary": {
-                                        "total": 0.005875787420183108,
+                                        "total": 0.20593277219911219,
                                         "compute": {
-                                            "total": 0.005685375420183108
+                                            "total": 0.2025789801991122
                                         },
                                         "storage": {
-                                            "total": 0.000190412,
+                                            "total": 0.003353792,
                                             "block": {
-                                                "total": 0.000190412,
+                                                "total": 0.003353792,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0.000190412
+                                                    "total": 0.003353792
                                                 }
                                             },
                                             "file": {
@@ -1208,19 +1468,19 @@
                                                 "type": "Deployment",
                                                 "namespace": "preproduction-effe524176"
                                             },
-                                            "total": 0.005875787420183108,
+                                            "total": 0.20593277219911219,
                                             "compute": {
-                                                "total": 0.005685375420183108
+                                                "total": 0.2025789801991122
                                             },
                                             "storage": {
-                                                "total": 0.000190412,
+                                                "total": 0.003353792,
                                                 "block": {
-                                                    "total": 0.000190412,
+                                                    "total": 0.003353792,
                                                     "ebsPv": {
                                                         "total": 0
                                                     },
                                                     "nonPv": {
-                                                        "total": 0.000190412
+                                                        "total": 0.003353792
                                                     }
                                                 },
                                                 "file": {
@@ -1246,7 +1506,7 @@
                                         }
                                     ]
                                 },
-                                "order-details-api": {
+                                "dcl-web-channel": {
                                     "summary": {
                                         "total": 0,
                                         "compute": {
@@ -1287,21 +1547,92 @@
                                         }
                                     ]
                                 },
-                                "preferences-api": {
+                                "order-details-api": {
                                     "summary": {
-                                        "total": 0.010648748640511945,
+                                        "total": 0.0006301152662868947,
                                         "compute": {
-                                            "total": 0.009025048640511945
+                                            "total": 0.0002824062662868947
                                         },
                                         "storage": {
-                                            "total": 0.0016237,
+                                            "total": 0.000347709,
                                             "block": {
-                                                "total": 0.0016237,
+                                                "total": 0.000347709,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0.0016237
+                                                    "total": 0.000347709
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "order-details-api",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-d9095ba436"
+                                            },
+                                            "total": 0.0006301152662868947,
+                                            "compute": {
+                                                "total": 0.0002824062662868947
+                                            },
+                                            "storage": {
+                                                "total": 0.000347709,
+                                                "block": {
+                                                    "total": 0.000347709,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.000347709
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {}
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "preferences-api": {
+                                    "summary": {
+                                        "total": 0.016563034360435998,
+                                        "compute": {
+                                            "total": 0.012497034360435998
+                                        },
+                                        "storage": {
+                                            "total": 0.004066,
+                                            "block": {
+                                                "total": 0.004066,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.004066
                                                 }
                                             },
                                             "file": {
@@ -1320,19 +1651,19 @@
                                                 "type": "Deployment",
                                                 "namespace": "preproduction-8a94f03f19"
                                             },
-                                            "total": 0.010648748640511945,
+                                            "total": 0.016563034360435998,
                                             "compute": {
-                                                "total": 0.009025048640511945
+                                                "total": 0.012497034360435998
                                             },
                                             "storage": {
-                                                "total": 0.0016237,
+                                                "total": 0.004066,
                                                 "block": {
-                                                    "total": 0.0016237,
+                                                    "total": 0.004066,
                                                     "ebsPv": {
                                                         "total": 0
                                                     },
                                                     "nonPv": {
-                                                        "total": 0.0016237
+                                                        "total": 0.004066
                                                     }
                                                 },
                                                 "file": {
@@ -1360,19 +1691,19 @@
                                 },
                                 "seo-pages": {
                                     "summary": {
-                                        "total": 0.1546072037559581,
+                                        "total": 0.29359471984404606,
                                         "compute": {
-                                            "total": 0.1384540437559581
+                                            "total": 0.25713883650404606
                                         },
                                         "storage": {
-                                            "total": 0.01615316,
+                                            "total": 0.03617284,
                                             "block": {
-                                                "total": 0.01615316,
+                                                "total": 0.03617284,
                                                 "ebsPv": {
                                                     "total": 0
                                                 },
                                                 "nonPv": {
-                                                    "total": 0.01615316
+                                                    "total": 0.03617284
                                                 }
                                             },
                                             "file": {
@@ -1382,7 +1713,25 @@
                                                 }
                                             }
                                         },
-                                        "networking": {}
+                                        "networking": {
+                                            "totalCost": 0.00028304334,
+                                            "totalUsage": 0.003144926,
+                                            "total": {
+                                                "out": {
+                                                    "cost": 0.00028304334,
+                                                    "usage": 0.003144926
+                                                }
+                                            },
+                                            "internet": {
+                                                "out": {
+                                                    "cost": 0.00028304334,
+                                                    "usage": 0.003144926
+                                                }
+                                            },
+                                            "interAZ": {},
+                                            "intraAZ": {},
+                                            "interRegion": {}
+                                        }
                                     },
                                     "resources": [
                                         {
@@ -1391,19 +1740,19 @@
                                                 "type": "Deployment",
                                                 "namespace": "preproduction-da200f9975"
                                             },
-                                            "total": 0.1546072037559581,
+                                            "total": 0.29359471984404606,
                                             "compute": {
-                                                "total": 0.1384540437559581
+                                                "total": 0.25713883650404606
                                             },
                                             "storage": {
-                                                "total": 0.01615316,
+                                                "total": 0.03617284,
                                                 "block": {
-                                                    "total": 0.01615316,
+                                                    "total": 0.03617284,
                                                     "ebsPv": {
                                                         "total": 0
                                                     },
                                                     "nonPv": {
-                                                        "total": 0.01615316
+                                                        "total": 0.03617284
                                                     }
                                                 },
                                                 "file": {
@@ -1413,7 +1762,25 @@
                                                     }
                                                 }
                                             },
-                                            "networking": {}
+                                            "networking": {
+                                                "totalCost": 0.00028304334,
+                                                "totalUsage": 0.003144926,
+                                                "total": {
+                                                    "out": {
+                                                        "cost": 0.00028304334,
+                                                        "usage": 0.003144926
+                                                    }
+                                                },
+                                                "internet": {
+                                                    "out": {
+                                                        "cost": 0.00028304334,
+                                                        "usage": 0.003144926
+                                                    }
+                                                },
+                                                "interAZ": {},
+                                                "intraAZ": {},
+                                                "interRegion": {}
+                                            }
                                         },
                                         {
                                             "metadata": {
@@ -1435,5 +1802,5 @@
                 }
             }
         ]
-    
+
 }

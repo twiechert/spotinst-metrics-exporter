@@ -177,7 +177,7 @@ func (c *OceanAWSClusterCostsCollector) collectWorkloadCosts(
 
 	workloadTotalCost := spotinst.Float64Value(workload.Total)
 	workloadStorageCost := spotinst.Float64Value(workload.Storage.Total)
-	workloadComputeCost := spotinst.Float64Value(workload.Storage.Total)
+	workloadComputeCost := spotinst.Float64Value(workload.Compute.Total)
 
 	workloadNetworkCost := workloadTotalCost - workloadStorageCost - workloadComputeCost
 
