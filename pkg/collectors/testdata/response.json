@@ -1,0 +1,1439 @@
+{
+
+        "aggregatedClusterCosts": [
+            {
+                "result": {
+                    "totalForDuration": {
+                        "startTime": "Tue Jul 02 00:00:00 UTC 2024",
+                        "endTime": "Fri Jul 12 00:00:00 UTC 2024",
+                        "summary": {
+                            "total": 64.46566572756552,
+                            "compute": {
+                                "total": 64.06714786975552,
+                                "workloads": {
+                                    "total": 64.06714786975552
+                                },
+                                "headroom": {
+                                    "total": 0
+                                }
+                            },
+                            "storage": {
+                                "total": 0.387697763,
+                                "block": {
+                                    "total": 0.387697763,
+                                    "ebsPv": {
+                                        "total": 0
+                                    },
+                                    "nonPv": {
+                                        "total": 0.387697763
+                                    }
+                                },
+                                "file": {
+                                    "total": 0,
+                                    "efsPv": {
+                                        "total": 0
+                                    }
+                                }
+                            },
+                            "networking": {
+                                "totalCost": 0.010820094809999998,
+                                "totalUsage": 0.12022792100000002,
+                                "total": {
+                                    "out": {
+                                        "cost": 0.010820094809999998,
+                                        "usage": 0.12022792100000002
+                                    }
+                                },
+                                "internet": {
+                                    "out": {
+                                        "cost": 0.010820042549999999,
+                                        "usage": 0.12022269500000002
+                                    }
+                                },
+                                "interAZ": {
+                                    "out": {
+                                        "cost": 5.2260000000000006e-8,
+                                        "usage": 0.0000052260000000000004
+                                    }
+                                }
+                            }
+                        },
+                        "detailedCosts": {
+                            "groupedBy": "n.l.app.kubernetes.io/name",
+                            "aggregations": {
+                                "destinations-api": {
+                                    "summary": {
+                                        "total": 0.6841574027813946,
+                                        "compute": {
+                                            "total": 0.6747544499713947
+                                        },
+                                        "storage": {
+                                            "total": 0.009398649999999998,
+                                            "block": {
+                                                "total": 0.009398649999999998,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.009398649999999998
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {
+                                            "totalCost": 0.0000043028099999999996,
+                                            "totalUsage": 0.000047809,
+                                            "total": {
+                                                "out": {
+                                                    "cost": 0.0000043028099999999996,
+                                                    "usage": 0.000047809
+                                                }
+                                            },
+                                            "internet": {
+                                                "out": {
+                                                    "cost": 0.0000043028099999999996,
+                                                    "usage": 0.000047809
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "destinations-api",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-00bbc41c93"
+                                            },
+                                            "total": 0.6841574027813946,
+                                            "compute": {
+                                                "total": 0.6747544499713947
+                                            },
+                                            "storage": {
+                                                "total": 0.009398649999999998,
+                                                "block": {
+                                                    "total": 0.009398649999999998,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.009398649999999998
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {
+                                                "totalCost": 0.0000043028099999999996,
+                                                "totalUsage": 0.000047809,
+                                                "total": {
+                                                    "out": {
+                                                        "cost": 0.0000043028099999999996,
+                                                        "usage": 0.000047809
+                                                    }
+                                                },
+                                                "internet": {
+                                                    "out": {
+                                                        "cost": 0.0000043028099999999996,
+                                                        "usage": 0.000047809
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "seo-cms": {
+                                    "summary": {
+                                        "total": 0.0943468672739813,
+                                        "compute": {
+                                            "total": 0.0812666572739813
+                                        },
+                                        "storage": {
+                                            "total": 0.01308021,
+                                            "block": {
+                                                "total": 0.01308021,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.01308021
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "seo-cms",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-688fc47235"
+                                            },
+                                            "total": 0.0943468672739813,
+                                            "compute": {
+                                                "total": 0.0812666572739813
+                                            },
+                                            "storage": {
+                                                "total": 0.01308021,
+                                                "block": {
+                                                    "total": 0.01308021,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.01308021
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {}
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "web-gateway": {
+                                    "summary": {
+                                        "total": 0,
+                                        "compute": {
+                                            "total": 0
+                                        },
+                                        "storage": {
+                                            "total": 0,
+                                            "block": {
+                                                "total": 0,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "web-blog-cms": {
+                                    "summary": {
+                                        "total": 0.09000011929040805,
+                                        "compute": {
+                                            "total": 0.08128823929040804
+                                        },
+                                        "storage": {
+                                            "total": 0.008711880000000002,
+                                            "block": {
+                                                "total": 0.008711880000000002,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.008711880000000002
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "web-blog-cms",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-e72af03a79"
+                                            },
+                                            "total": 0.09000011929040805,
+                                            "compute": {
+                                                "total": 0.08128823929040804
+                                            },
+                                            "storage": {
+                                                "total": 0.008711880000000002,
+                                                "block": {
+                                                    "total": 0.008711880000000002,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.008711880000000002
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {
+                                                "totalCost": 0,
+                                                "totalUsage": 0,
+                                                "total": {}
+                                            }
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "user-management": {
+                                    "summary": {
+                                        "total": 0,
+                                        "compute": {
+                                            "total": 0
+                                        },
+                                        "storage": {
+                                            "total": 0,
+                                            "block": {
+                                                "total": 0,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "seo-api-v2": {
+                                    "summary": {
+                                        "total": 0.09755325668297146,
+                                        "compute": {
+                                            "total": 0.08922596668297146
+                                        },
+                                        "storage": {
+                                            "total": 0.00832729,
+                                            "block": {
+                                                "total": 0.00832729,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.00832729
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "seo-api-v2",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-b594e3be02"
+                                            },
+                                            "total": 0.09755325668297146,
+                                            "compute": {
+                                                "total": 0.08922596668297146
+                                            },
+                                            "storage": {
+                                                "total": 0.00832729,
+                                                "block": {
+                                                    "total": 0.00832729,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.00832729
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {}
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "tracking-api-k8s": {
+                                    "summary": {
+                                        "total": 0,
+                                        "compute": {
+                                            "total": 0
+                                        },
+                                        "storage": {
+                                            "total": 0,
+                                            "block": {
+                                                "total": 0,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "content-search-api": {
+                                    "summary": {
+                                        "total": 6.025672511677142,
+                                        "compute": {
+                                            "total": 5.998579585547142
+                                        },
+                                        "storage": {
+                                            "total": 0.027062717000000007,
+                                            "block": {
+                                                "total": 0.027062717000000007,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.027062717000000007
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {
+                                            "totalCost": 0.00003020913,
+                                            "totalUsage": 0.000335657,
+                                            "total": {
+                                                "out": {
+                                                    "cost": 0.00003020913,
+                                                    "usage": 0.000335657
+                                                }
+                                            },
+                                            "internet": {
+                                                "out": {
+                                                    "cost": 0.00003020913,
+                                                    "usage": 0.000335657
+                                                }
+                                            },
+                                            "interAZ": {},
+                                            "intraAZ": {},
+                                            "interRegion": {}
+                                        }
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "content-search-api",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-513b0e44df"
+                                            },
+                                            "total": 6.025672511677142,
+                                            "compute": {
+                                                "total": 5.998579585547142
+                                            },
+                                            "storage": {
+                                                "total": 0.027062717000000007,
+                                                "block": {
+                                                    "total": 0.027062717000000007,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.027062717000000007
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {
+                                                "totalCost": 0.00003020913,
+                                                "totalUsage": 0.000335657,
+                                                "total": {
+                                                    "out": {
+                                                        "cost": 0.00003020913,
+                                                        "usage": 0.000335657
+                                                    }
+                                                },
+                                                "internet": {
+                                                    "out": {
+                                                        "cost": 0.00003020913,
+                                                        "usage": 0.000335657
+                                                    }
+                                                },
+                                                "interAZ": {},
+                                                "intraAZ": {},
+                                                "interRegion": {}
+                                            }
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "permission-api": {
+                                    "summary": {
+                                        "total": 0,
+                                        "compute": {
+                                            "total": 0
+                                        },
+                                        "storage": {
+                                            "total": 0,
+                                            "block": {
+                                                "total": 0,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "content-lookup-api": {
+                                    "summary": {
+                                        "total": 16.88998358797032,
+                                        "compute": {
+                                            "total": 16.70936797115032
+                                        },
+                                        "storage": {
+                                            "total": 0.18060383000000002,
+                                            "block": {
+                                                "total": 0.18060383000000002,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.18060383000000002
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {
+                                            "totalCost": 0.00001178682,
+                                            "totalUsage": 0.00013560999999999998,
+                                            "total": {
+                                                "out": {
+                                                    "cost": 0.00001178682,
+                                                    "usage": 0.00013560999999999998
+                                                }
+                                            },
+                                            "internet": {
+                                                "out": {
+                                                    "cost": 0.00001173456,
+                                                    "usage": 0.000130384
+                                                }
+                                            },
+                                            "interAZ": {
+                                                "out": {
+                                                    "cost": 5.2260000000000006e-8,
+                                                    "usage": 0.0000052260000000000004
+                                                }
+                                            },
+                                            "intraAZ": {},
+                                            "interRegion": {}
+                                        }
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "content-lookup-api",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-bff4dcd4e0"
+                                            },
+                                            "total": 16.88998358797032,
+                                            "compute": {
+                                                "total": 16.70936797115032
+                                            },
+                                            "storage": {
+                                                "total": 0.18060383000000002,
+                                                "block": {
+                                                    "total": 0.18060383000000002,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.18060383000000002
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {
+                                                "totalCost": 0.00001178682,
+                                                "totalUsage": 0.00013560999999999998,
+                                                "total": {
+                                                    "out": {
+                                                        "cost": 0.00001178682,
+                                                        "usage": 0.00013560999999999998
+                                                    }
+                                                },
+                                                "internet": {
+                                                    "out": {
+                                                        "cost": 0.00001173456,
+                                                        "usage": 0.000130384
+                                                    }
+                                                },
+                                                "interAZ": {
+                                                    "out": {
+                                                        "cost": 5.2260000000000006e-8,
+                                                        "usage": 0.0000052260000000000004
+                                                    }
+                                                },
+                                                "intraAZ": {},
+                                                "interRegion": {}
+                                            }
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "web-app": {
+                                    "summary": {
+                                        "total": 0,
+                                        "compute": {
+                                            "total": 0
+                                        },
+                                        "storage": {
+                                            "total": 0,
+                                            "block": {
+                                                "total": 0,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "geo-location-api": {
+                                    "summary": {
+                                        "total": 37.47056300137262,
+                                        "compute": {
+                                            "total": 37.36758879332262
+                                        },
+                                        "storage": {
+                                            "total": 0.09279064999999999,
+                                            "block": {
+                                                "total": 0.09279064999999999,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.09279064999999999
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {
+                                            "totalCost": 0.01018355805,
+                                            "totalUsage": 0.11315064500000001,
+                                            "total": {
+                                                "out": {
+                                                    "cost": 0.01018355805,
+                                                    "usage": 0.11315064500000001
+                                                }
+                                            },
+                                            "internet": {
+                                                "out": {
+                                                    "cost": 0.01018355805,
+                                                    "usage": 0.11315064500000001
+                                                }
+                                            },
+                                            "interAZ": {},
+                                            "intraAZ": {},
+                                            "interRegion": {}
+                                        }
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "geo-location-api",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-072b4f7204"
+                                            },
+                                            "total": 37.47056300137262,
+                                            "compute": {
+                                                "total": 37.36758879332262
+                                            },
+                                            "storage": {
+                                                "total": 0.09279064999999999,
+                                                "block": {
+                                                    "total": 0.09279064999999999,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.09279064999999999
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {
+                                                "totalCost": 0.01018355805,
+                                                "totalUsage": 0.11315064500000001,
+                                                "total": {
+                                                    "out": {
+                                                        "cost": 0.01018355805,
+                                                        "usage": 0.11315064500000001
+                                                    }
+                                                },
+                                                "internet": {
+                                                    "out": {
+                                                        "cost": 0.01018355805,
+                                                        "usage": 0.11315064500000001
+                                                    }
+                                                },
+                                                "interAZ": {},
+                                                "intraAZ": {},
+                                                "interRegion": {}
+                                            }
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "web-blog-fe": {
+                                    "summary": {
+                                        "total": 0.011070135592014835,
+                                        "compute": {
+                                            "total": 0.008580591592014835
+                                        },
+                                        "storage": {
+                                            "total": 0.0024895440000000002,
+                                            "block": {
+                                                "total": 0.0024895440000000002,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.0024895440000000002
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "web-blog-fe",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-90258b0bb9"
+                                            },
+                                            "total": 0.011070135592014835,
+                                            "compute": {
+                                                "total": 0.008580591592014835
+                                            },
+                                            "storage": {
+                                                "total": 0.0024895440000000002,
+                                                "block": {
+                                                    "total": 0.0024895440000000002,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.0024895440000000002
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {}
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "web-content-viewer-be": {
+                                    "summary": {
+                                        "total": 0,
+                                        "compute": {
+                                            "total": 0
+                                        },
+                                        "storage": {
+                                            "total": 0,
+                                            "block": {
+                                                "total": 0,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "auth-api": {
+                                    "summary": {
+                                        "total": 0,
+                                        "compute": {
+                                            "total": 0
+                                        },
+                                        "storage": {
+                                            "total": 0,
+                                            "block": {
+                                                "total": 0,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "content-api": {
+                                    "summary": {
+                                        "total": 2.9311871051080023,
+                                        "compute": {
+                                            "total": 2.9033311471080023
+                                        },
+                                        "storage": {
+                                            "total": 0.027265719999999993,
+                                            "block": {
+                                                "total": 0.027265719999999993,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.027265719999999993
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {
+                                            "totalCost": 0.000590238,
+                                            "totalUsage": 0.0065582,
+                                            "total": {
+                                                "out": {
+                                                    "cost": 0.000590238,
+                                                    "usage": 0.0065582
+                                                }
+                                            },
+                                            "internet": {
+                                                "out": {
+                                                    "cost": 0.000590238,
+                                                    "usage": 0.0065582
+                                                }
+                                            },
+                                            "interAZ": {},
+                                            "intraAZ": {},
+                                            "interRegion": {}
+                                        }
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "content-api",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-45be1c645a"
+                                            },
+                                            "total": 2.9311871051080023,
+                                            "compute": {
+                                                "total": 2.9033311471080023
+                                            },
+                                            "storage": {
+                                                "total": 0.027265719999999993,
+                                                "block": {
+                                                    "total": 0.027265719999999993,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.027265719999999993
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {
+                                                "totalCost": 0.000590238,
+                                                "totalUsage": 0.0065582,
+                                                "total": {
+                                                    "out": {
+                                                        "cost": 0.000590238,
+                                                        "usage": 0.0065582
+                                                    }
+                                                },
+                                                "internet": {
+                                                    "out": {
+                                                        "cost": 0.000590238,
+                                                        "usage": 0.0065582
+                                                    }
+                                                },
+                                                "interAZ": {},
+                                                "intraAZ": {},
+                                                "interRegion": {}
+                                            }
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "content-gateway": {
+                                    "summary": {
+                                        "total": 0.005875787420183108,
+                                        "compute": {
+                                            "total": 0.005685375420183108
+                                        },
+                                        "storage": {
+                                            "total": 0.000190412,
+                                            "block": {
+                                                "total": 0.000190412,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.000190412
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "content-gateway",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-effe524176"
+                                            },
+                                            "total": 0.005875787420183108,
+                                            "compute": {
+                                                "total": 0.005685375420183108
+                                            },
+                                            "storage": {
+                                                "total": 0.000190412,
+                                                "block": {
+                                                    "total": 0.000190412,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.000190412
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {}
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "order-details-api": {
+                                    "summary": {
+                                        "total": 0,
+                                        "compute": {
+                                            "total": 0
+                                        },
+                                        "storage": {
+                                            "total": 0,
+                                            "block": {
+                                                "total": 0,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "preferences-api": {
+                                    "summary": {
+                                        "total": 0.010648748640511945,
+                                        "compute": {
+                                            "total": 0.009025048640511945
+                                        },
+                                        "storage": {
+                                            "total": 0.0016237,
+                                            "block": {
+                                                "total": 0.0016237,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.0016237
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "preferences-api",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-8a94f03f19"
+                                            },
+                                            "total": 0.010648748640511945,
+                                            "compute": {
+                                                "total": 0.009025048640511945
+                                            },
+                                            "storage": {
+                                                "total": 0.0016237,
+                                                "block": {
+                                                    "total": 0.0016237,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.0016237
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {}
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                },
+                                "seo-pages": {
+                                    "summary": {
+                                        "total": 0.1546072037559581,
+                                        "compute": {
+                                            "total": 0.1384540437559581
+                                        },
+                                        "storage": {
+                                            "total": 0.01615316,
+                                            "block": {
+                                                "total": 0.01615316,
+                                                "ebsPv": {
+                                                    "total": 0
+                                                },
+                                                "nonPv": {
+                                                    "total": 0.01615316
+                                                }
+                                            },
+                                            "file": {
+                                                "total": 0,
+                                                "efsPv": {
+                                                    "total": 0
+                                                }
+                                            }
+                                        },
+                                        "networking": {}
+                                    },
+                                    "resources": [
+                                        {
+                                            "metadata": {
+                                                "name": "seo-pages",
+                                                "type": "Deployment",
+                                                "namespace": "preproduction-da200f9975"
+                                            },
+                                            "total": 0.1546072037559581,
+                                            "compute": {
+                                                "total": 0.1384540437559581
+                                            },
+                                            "storage": {
+                                                "total": 0.01615316,
+                                                "block": {
+                                                    "total": 0.01615316,
+                                                    "ebsPv": {
+                                                        "total": 0
+                                                    },
+                                                    "nonPv": {
+                                                        "total": 0.01615316
+                                                    }
+                                                },
+                                                "file": {
+                                                    "total": 0,
+                                                    "efsPv": {
+                                                        "total": 0
+                                                    }
+                                                }
+                                            },
+                                            "networking": {}
+                                        },
+                                        {
+                                            "metadata": {
+                                                "name": "UnusedStorage",
+                                                "type": "UnusedStorage"
+                                            },
+                                            "total": 0,
+                                            "compute": {},
+                                            "storage": {
+                                                "total": 0
+                                            },
+                                            "networking": {}
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    
+}

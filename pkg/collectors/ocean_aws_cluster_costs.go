@@ -85,10 +85,13 @@ func (c *OceanAWSClusterCostsCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- c.clusterCost
 	ch <- c.namespaceCost
 	ch <- c.workloadCost
+	ch <- c.resourceCost
 }
 
 // Collect implements the prometheus.Collector interface.
 func (c *OceanAWSClusterCostsCollector) Collect(ch chan<- prometheus.Metric) {
+	c.logger.Info("starting collection loop")
+
 	now := time.Now()
 	firstDayOfCurrentMonth := now.AddDate(0, 0, -now.Day()+1)
 	firstDayOfNextMonth := now.AddDate(0, 1, -now.Day()+1)
@@ -97,6 +100,9 @@ func (c *OceanAWSClusterCostsCollector) Collect(ch chan<- prometheus.Metric) {
 	toDate := spotinst.String(firstDayOfNextMonth.Format("2006-01-02"))
 
 	for _, cluster := range c.clusters {
+		clusterID := spotinst.StringValue(cluster.ID)
+		c.logger.Info("fecthing info for cluster", "ocean_id", clusterID)
+
 		groupByProp := "resource.label.app.kubernetes.io/name"
 		// https://github.com/spotinst/spotinst-sdk-go/blob/9164e3f1eb2050c6a27f631eb0c55ea5fb223917/service/ocean/providers/aws/cluster.go#L1117C41-L1117C48  OceanId == ClusterId
 		input := &aws.ClusterAggregatedCostInput{
@@ -108,7 +114,6 @@ func (c *OceanAWSClusterCostsCollector) Collect(ch chan<- prometheus.Metric) {
 
 		output, err := c.client.GetClusterAggregatedCosts(c.ctx, input)
 		if err != nil {
-			clusterID := spotinst.StringValue(cluster.ID)
 			c.logger.Error(err, "failed to fetch cluster costs", "ocean_id", clusterID)
 			continue
 		}
@@ -134,13 +139,16 @@ func (c *OceanAWSClusterCostsCollector) collectClusterCosts(
 		// usually there is only one workload per workload name, unless the same workload exists in multiple namespaces
 		for _, resource := range aggregation.Resources {
 
-			namespace, workloadCost := c.collectWorkloadCosts(ch, resource, clusterId, clusterLabelValues)
+			if *resource.MetaData.Name != "UnusedStorage" {
+				namespace, workloadCost := c.collectWorkloadCosts(ch, resource, clusterId, clusterLabelValues)
 
-			if currentNamespaceCost, exists := aggregatedNamespaceCost[namespace]; exists {
-				aggregatedNamespaceCost[namespace] = currentNamespaceCost + workloadCost
-			} else {
-				aggregatedNamespaceCost[namespace] = workloadCost
+				if currentNamespaceCost, exists := aggregatedNamespaceCost[namespace]; exists {
+					aggregatedNamespaceCost[namespace] = currentNamespaceCost + workloadCost
+				} else {
+					aggregatedNamespaceCost[namespace] = workloadCost
+				}
 			}
+
 		}
 	}
 
@@ -149,7 +157,8 @@ func (c *OceanAWSClusterCostsCollector) collectClusterCosts(
 		if err != nil {
 			c.logger.Error(err, "failed to fetch namespace labels from spotinst api")
 		} else {
-			namespaceLabelValues := append(clusterLabelValues, c.labelMappings.LabelValues(labels)...)
+			namespaceLabelValues := append(clusterLabelValues, namespace)
+			namespaceLabelValues = append(namespaceLabelValues, c.labelMappings.LabelValues(labels)...)
 			collectGaugeValue(ch, c.namespaceCost, namespaceCost, namespaceLabelValues)
 		}
 	}
@@ -171,6 +180,7 @@ func (c *OceanAWSClusterCostsCollector) collectWorkloadCosts(
 	workloadComputeCost := spotinst.Float64Value(workload.Storage.Total)
 
 	workloadNetworkCost := workloadTotalCost - workloadStorageCost - workloadComputeCost
+
 	labelValues := append(namespaceLabelValues, spotinst.StringValue(workloadNamespace), spotinst.StringValue(workloadName), *workloadType)
 	workloadLabels, err := c.labelRetriever.GetLabelFor(c.ctx, *workloadType, *workloadNamespace, clusterId, *workloadName)
 
@@ -180,8 +190,14 @@ func (c *OceanAWSClusterCostsCollector) collectWorkloadCosts(
 	} else {
 		labelValues = append(labelValues, c.labelMappings.LabelValues(workloadLabels)...)
 		collectGaugeValue(ch, c.workloadCost, spotinst.Float64Value(workload.Total), labelValues)
-		resourceLabelValues := append(labelValues, "network")
-		collectGaugeValue(ch, c.resourceCost, workloadNetworkCost, resourceLabelValues)
+		networkLabelValues := append(labelValues, "network")
+		collectGaugeValue(ch, c.resourceCost, workloadNetworkCost, networkLabelValues)
+
+		storageLabelValues := append(labelValues, "storage")
+		collectGaugeValue(ch, c.resourceCost, workloadStorageCost, storageLabelValues)
+
+		computeLabelValues := append(labelValues, "compute")
+		collectGaugeValue(ch, c.resourceCost, workloadComputeCost, computeLabelValues)
 
 	}
 	return *workloadNamespace, workloadTotalCost

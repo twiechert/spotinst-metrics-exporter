@@ -64,11 +64,16 @@ func main() {
 		os.Exit(1)
 	}
 
+	logger.Info("Fetched clusters", "clusters", clusters)
+
 	registry := prometheus.NewRegistry()
 	// creates the in-cluster config
 
 	labelRetriever := collectors.NewK8sOceanLabelRetriever(ctx, logger, mcsClient, clusters)
+	logger.Info("populating label cache one.")
 	labelRetriever.PopulateOnce()
+	logger.Info("initial population completed.")
+
 	go labelRetriever.PopulationLoop()
 
 	registry.MustRegister(collectors.NewOceanAWSClusterCostsCollector(ctx, logger, spotAwsClient, clusters, labelMappings, labelRetriever))

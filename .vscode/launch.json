@@ -1,0 +1,25 @@
+{
+    // Verwendet IntelliSense zum Ermitteln möglicher Attribute.
+    // Zeigen Sie auf vorhandene Attribute, um die zugehörigen Beschreibungen anzuzeigen.
+    // Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Test cluster",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${workspaceFolder}/pkg/collectors/ocean_aws_cluster_cost_test.go",
+            "env": {
+                "SPOTINST_ACCOUNT": "act-1b39be47",
+                "SPOTINST_TOKEN" : "eaf663154abb8f24de6e4988d3ef2230aa4d1d263e4f5fcc95a22c29dbb94294"
+             },
+             
+             "args": [
+                "-test.run", 
+                "TestOceanAWSClusterCostsCollector"            ]
+        
+           
+        }
+    ]
+}
