@@ -38,6 +38,7 @@ func init() {
 
 func main() {
 	addr := pflag.String("listen-address", ":8080", "The address to listen on for HTTP requests.")
+	groupByProp := pflag.String("identifying-k8s-label", "resource.label.app.kubernetes.io/name", "The label that identifies the deployment units on the cluster.")
 
 	var labelMappings labels.Mappings
 	pflag.Var(
@@ -76,7 +77,7 @@ func main() {
 
 	go labelRetriever.PopulationLoop()
 
-	registry.MustRegister(collectors.NewOceanAWSClusterCostsCollector(ctx, logger, spotAwsClient, clusters, labelMappings, labelRetriever))
+	registry.MustRegister(collectors.NewOceanAWSClusterCostsCollector(ctx, logger, spotAwsClient, clusters, labelMappings, labelRetriever, *groupByProp))
 	registry.MustRegister(collectors.NewOceanAWSResourceSuggestionsCollector(ctx, logger, oceanAWSClient, clusters))
 
 	handler := http.NewServeMux()

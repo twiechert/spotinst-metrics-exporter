@@ -31,6 +31,7 @@ type OceanAWSClusterCostsCollector struct {
 	workloadCost   *prometheus.Desc
 	resourceCost   *prometheus.Desc
 	labelRetriever K8sLabelRetriever
+	groupByProp    string
 }
 
 // NewOceanAWSClusterCostsCollector creates a new OceanAWSClusterCostsCollector
@@ -42,6 +43,7 @@ func NewOceanAWSClusterCostsCollector(
 	clusters []*aws.Cluster,
 	labelMappings labels.Mappings,
 	labelRetriever K8sLabelRetriever,
+	groupByProp string,
 ) *OceanAWSClusterCostsCollector {
 	collector := &OceanAWSClusterCostsCollector{
 		ctx:           ctx,
@@ -75,6 +77,7 @@ func NewOceanAWSClusterCostsCollector(
 			nil,
 		),
 		labelRetriever: labelRetriever,
+		groupByProp:    groupByProp,
 	}
 
 	return collector
@@ -103,12 +106,11 @@ func (c *OceanAWSClusterCostsCollector) Collect(ch chan<- prometheus.Metric) {
 		clusterID := spotinst.StringValue(cluster.ID)
 		c.logger.Info("fecthing info for cluster", "ocean_id", clusterID)
 
-		groupByProp := "resource.label.app.kubernetes.io/name"
 		// https://github.com/spotinst/spotinst-sdk-go/blob/9164e3f1eb2050c6a27f631eb0c55ea5fb223917/service/ocean/providers/aws/cluster.go#L1117C41-L1117C48  OceanId == ClusterId
 		input := &aws.ClusterAggregatedCostInput{
 			StartTime: fromDate,
 			EndTime:   toDate,
-			GroupBy:   &groupByProp,
+			GroupBy:   &c.groupByProp,
 			OceanId:   cluster.ID,
 		}
 

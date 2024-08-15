@@ -185,7 +185,7 @@ func TestOceanAWSClusterCostsCollector(t *testing.T) {
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
 			ctx := context.Background()
-			collector := NewOceanAWSClusterCostsCollector(ctx, logger, testCase.client(), testCase.clusters, testCase.labelMappings, testCase.labelCache())
+			collector := NewOceanAWSClusterCostsCollector(ctx, logger, testCase.client(), testCase.clusters, testCase.labelMappings, testCase.labelCache(), "resource.label.app.kubernetes.io/name")
 
 			assert.NoError(t, testutil.CollectAndCompare(collector, strings.NewReader(testCase.expected)))
 		})
