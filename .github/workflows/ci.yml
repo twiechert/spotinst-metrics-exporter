@@ -35,8 +35,8 @@ jobs:
       - name: Download go modules
         run: go mod download
 
-      #- name: Run go test
-      #  run: make coverage
+      - name: Run go test
+        run: make coverage
 
       - name: Run go vet
         run: make vet
