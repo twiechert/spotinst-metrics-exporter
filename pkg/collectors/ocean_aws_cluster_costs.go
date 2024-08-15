@@ -50,26 +50,26 @@ func NewOceanAWSClusterCostsCollector(
 		clusters:      clusters,
 		labelMappings: labelMappings,
 		clusterCost: prometheus.NewDesc(
-			prometheus.BuildFQName("spotinst", "ocean_aws", "cluster_cost"),
+			prometheus.BuildFQName("spotinst", "ocean_aws_v2", "cluster_cost"),
 			"Total cost of an ocean cluster",
 			[]string{"ocean_id", "ocean_name"},
 			nil,
 		),
 		namespaceCost: prometheus.NewDesc(
-			prometheus.BuildFQName("spotinst", "ocean_aws", "namespace_cost"),
+			prometheus.BuildFQName("spotinst", "ocean_aws_v2", "namespace_cost"),
 			"Total cost of a namespace",
 			append([]string{"ocean_id", "ocean_name", "namespace"}, labelMappings.LabelNames()...),
 			nil,
 		),
 		workloadCost: prometheus.NewDesc(
-			prometheus.BuildFQName("spotinst", "ocean_aws", "workload_cost"),
+			prometheus.BuildFQName("spotinst", "ocean_aws_v2", "workload_cost"),
 			"Total cost of a workload",
 			append([]string{"ocean_id", "ocean_name", "namespace", "name", "workload"}, labelMappings.LabelNames()...),
 			nil,
 		),
 
 		resourceCost: prometheus.NewDesc(
-			prometheus.BuildFQName("spotinst", "ocean_aws", "workload_resource_cost"),
+			prometheus.BuildFQName("spotinst", "ocean_aws_v2", "workload_resource_cost"),
 			"Total cost for the given resource of a workload",
 			append([]string{"ocean_id", "ocean_name", "namespace", "name", "workload", "resource"}, labelMappings.LabelNames()...),
 			nil,
