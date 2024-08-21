@@ -132,36 +132,38 @@ func (c *OceanAWSClusterCostsCollector) collectClusterCosts(
 	clusterId := spotinst.StringValue(cluster.ID)
 	clusterLabelValues := []string{clusterId, spotinst.StringValue(cluster.Name)}
 
-	collectGaugeValue(ch, c.clusterCost, spotinst.Float64Value(aggregatedClusterCost.Result.TotalForDuration.Summary.Total), clusterLabelValues)
+	if aggregatedClusterCost.Result.TotalForDuration != nil {
 
-	// since we aggregate over workload and not
-	aggregatedNamespaceCost := make(map[string]float64)
-	for _, aggregation := range aggregatedClusterCost.Result.TotalForDuration.DetailedCosts.Aggregations {
+		collectGaugeValue(ch, c.clusterCost, spotinst.Float64Value(aggregatedClusterCost.Result.TotalForDuration.Summary.Total), clusterLabelValues)
+		// since we aggregate over workload and not
+		aggregatedNamespaceCost := make(map[string]float64)
+		for _, aggregation := range aggregatedClusterCost.Result.TotalForDuration.DetailedCosts.Aggregations {
 
-		// usually there is only one workload per workload name, unless the same workload exists in multiple namespaces
-		for _, resource := range aggregation.Resources {
+			// usually there is only one workload per workload name, unless the same workload exists in multiple namespaces
+			for _, resource := range aggregation.Resources {
 
-			if *resource.MetaData.Name != "UnusedStorage" {
-				namespace, workloadCost := c.collectWorkloadCosts(ch, resource, clusterId, clusterLabelValues)
+				if *resource.MetaData.Name != "UnusedStorage" {
+					namespace, workloadCost := c.collectWorkloadCosts(ch, resource, clusterId, clusterLabelValues)
 
-				if currentNamespaceCost, exists := aggregatedNamespaceCost[namespace]; exists {
-					aggregatedNamespaceCost[namespace] = currentNamespaceCost + workloadCost
-				} else {
-					aggregatedNamespaceCost[namespace] = workloadCost
+					if currentNamespaceCost, exists := aggregatedNamespaceCost[namespace]; exists {
+						aggregatedNamespaceCost[namespace] = currentNamespaceCost + workloadCost
+					} else {
+						aggregatedNamespaceCost[namespace] = workloadCost
+					}
 				}
+
 			}
-
 		}
-	}
 
-	for namespace, namespaceCost := range aggregatedNamespaceCost {
-		labels, err := c.labelRetriever.GetLabelFor(c.ctx, "Namspace", namespace, clusterId, namespace)
-		if err != nil {
-			c.logger.Error(err, "failed to fetch namespace labels from spotinst api")
-		} else {
-			namespaceLabelValues := append(clusterLabelValues, namespace)
-			namespaceLabelValues = append(namespaceLabelValues, c.labelMappings.LabelValues(labels)...)
-			collectGaugeValue(ch, c.namespaceCost, namespaceCost, namespaceLabelValues)
+		for namespace, namespaceCost := range aggregatedNamespaceCost {
+			labels, err := c.labelRetriever.GetLabelFor(c.ctx, "Namspace", namespace, clusterId, namespace)
+			if err != nil {
+				c.logger.Error(err, "failed to fetch namespace labels from spotinst api")
+			} else {
+				namespaceLabelValues := append(clusterLabelValues, namespace)
+				namespaceLabelValues = append(namespaceLabelValues, c.labelMappings.LabelValues(labels)...)
+				collectGaugeValue(ch, c.namespaceCost, namespaceCost, namespaceLabelValues)
+			}
 		}
 	}
 
