@@ -165,6 +165,9 @@ func (c *OceanAWSClusterCostsCollector) collectClusterCosts(
 				collectGaugeValue(ch, c.namespaceCost, namespaceCost, namespaceLabelValues)
 			}
 		}
+	} else {
+		c.logger.Info("received a total cost of zero for the given cluster.", "ocean_id", clusterId)
+
 	}
 
 }

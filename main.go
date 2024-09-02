@@ -71,7 +71,7 @@ func main() {
 	// creates the in-cluster config
 
 	labelRetriever := collectors.NewK8sOceanLabelRetriever(ctx, logger, mcsClient, clusters)
-	logger.Info("populating label cache one.")
+	logger.Info("populating label cache once.")
 	labelRetriever.PopulateOnce()
 	logger.Info("initial population completed.")
 
